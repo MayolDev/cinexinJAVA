@@ -1,0 +1,188 @@
+@import url(/cinexin/css/global.css);
+
+p {
+    font: var(--body-16regular);
+    color: var(--grey-3);
+}
+
+.edad{
+    display: flex;
+    justify-content: space-between;
+}
+
+.edad > span , .precio > span{
+    color: var(--black);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+.precio{
+display: flex;
+justify-content: space-between;
+margin-bottom: 20px;
+}
+
+.precio > span{
+    margin-right: 20px;
+}
+
+section{
+    width: 30%;
+}
+
+article{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.pelicula > img{
+    width: 100px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.precio > form > select{
+    font: var(--body-16regular);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+section:nth-child(2){
+    background-color: white;
+    box-shadow: 0px 0px 20px 5px #00030355;
+    border-radius: 10px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+    height: fit-content;
+
+}
+
+.pelicula{
+    display: flex;
+}
+
+.info > p{
+    margin: 0px;
+    font: var(--body-16regular);
+}
+.info > p > span{
+    font: var(--body-16bold);
+    color: var(--primary);
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+}
+
+.total > h3 {
+
+    margin: 0px;
+}
+
+.total > h4{
+    margin: 0px;
+    font: var(--title-40medium);
+}
+
+
+ button{
+    background-color: var(--primary);
+    padding: 10px;
+    width: 100%;
+    border-radius: 50px;
+    font: var(--title-24medium);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.asientos-info{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.asientos-info > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+
+.asientos-info > div > img{
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+
+hr{
+    height: 10px;
+    color: var(--black);
+    background-color: var(--grey-3);
+
+}
+
+.parent {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    
+    }
+
+.parent > img{
+    width: 40px;
+    height: 40px;
+}
+
+.mostrardatos > div{
+
+
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: 100%;
+
+}
+
+.mostrardatos > div > span{
+    font-size: 30px;
+    margin: 0px 10px;
+}
+
+
+.asiento {
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+}
+
+
+.asiento > span{
+    position: absolute;
+    color: white;
+}
+
+.mostrardatos{
+    width: 70%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activo {
+    cursor: pointer;
+}
+
+.asientos{
+    color:grey !important;
+}

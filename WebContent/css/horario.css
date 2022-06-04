@@ -1,0 +1,53 @@
+.mostrardatos > div{
+
+
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: 400px;
+
+}
+
+.mostrardatos > div > span{
+    font-size: 30px;
+    margin: 0px 10px;
+}
+
+
+.asiento {
+    display: flex;
+    justify-content: center;
+}
+
+
+.asiento > span{
+    position: absolute;
+    color: white;
+}
+
+.mostrardatos{
+    width: 80%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+article > form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+article > form > input{
+    width:  200px;
+}
+
+.mostrartabla{
+    margin: 20px auto;
+}

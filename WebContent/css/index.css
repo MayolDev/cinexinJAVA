@@ -1,0 +1,15 @@
+
+
+.cartelera{
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    width: 80%;
+    margin: 0 auto;
+}
+
+.cartelera > div > a > img{
+    margin: 20px;
+}

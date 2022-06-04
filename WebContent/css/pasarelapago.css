@@ -1,0 +1,120 @@
+@import url(/cinexin/css/global.css);
+
+p {
+    font: var(--body-16regular);
+    color: var(--grey-3);
+}
+
+.edad{
+    display: flex;
+    justify-content: space-between;
+}
+
+.edad > span , .precio > span{
+    color: var(--black);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+.precio{
+display: flex;
+justify-content: space-between;
+margin-bottom: 20px;
+}
+
+.precio > span{
+    margin-right: 20px;
+}
+
+section{
+    width: 30%;
+}
+
+article{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.pelicula > img{
+    width: 100px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.precio > form > select{
+    font: var(--body-16regular);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+section:nth-child(2){
+    background-color: white;
+    box-shadow: 0px 0px 20px 5px #00030355;
+    border-radius: 10px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+    height: fit-content;
+
+}
+
+.pelicula{
+    display: flex;
+}
+
+.info > p{
+    margin: 0px;
+    font: var(--body-16regular);
+}
+.info > p > span{
+    font: var(--body-16bold);
+    color: var(--primary);
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+}
+
+.total > h3 {
+
+    margin: 0px;
+}
+
+.total > h4{
+    margin: 0px;
+    font: var(--title-40medium);
+}
+
+
+ button{
+    background-color: var(--primary);
+    padding: 10px;
+    width: 100%;
+    border-radius: 50px;
+    font: var(--title-24medium);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.forms-celds > input{
+    border-radius: 5px;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+}
+
+.forms-celds > label{
+    font: var(--body-16regular);
+    color: var(--black)
+}
+
+.forms-celds{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
