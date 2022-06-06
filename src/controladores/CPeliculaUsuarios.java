@@ -28,6 +28,7 @@ public class CPeliculaUsuarios extends HttpServlet {
 	   Sesion Msesion;
 	   HttpSession sesion;
   
+	   //Mostrar peliculas al usuario e informacion del cine y sala.
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

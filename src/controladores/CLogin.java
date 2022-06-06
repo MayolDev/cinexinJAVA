@@ -66,6 +66,8 @@ public class CLogin extends HttpServlet {
 		calendar2 = Calendar.getInstance();
 		calendar.setTime(fechaActual);
 		intentos = 0;
+
+		//intentos de login
 		
 		if(sesion.getAttribute("intentos") != null) {
 			
@@ -82,6 +84,7 @@ public class CLogin extends HttpServlet {
 		email = request.getParameter("email");
 		contrasena = request.getParameter("password");
 		
+		//encriptamos la contraseña para compararla
 		contrasena = encriptador.convertirSHA256(contrasena);
 		
 		usuario = new Usuario(con);
@@ -91,6 +94,7 @@ public class CLogin extends HttpServlet {
 		
 		usuario = usuario.LoginUsuario();
 		
+		//Comprobaciones, si el login es incorrecto, aumentamos el tiempo de espera para loguearse.
 		try {
 
 			if(usuario.getDni() == null) {

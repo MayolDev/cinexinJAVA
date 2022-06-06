@@ -21,7 +21,7 @@ public class SesionListener implements HttpSessionListener {
 	Connection con;
 	ConexionBD conexion;
 	
-	
+	//SesionListener para establecer parametros de Sesion, ademas de la conexion a la base de datos
     public void sessionCreated(HttpSessionEvent se)  { 
         
 		conexion = new ConexionBD("ns3034756.ip-91-121-81.eu/a21_ima?currentSchema=cinexin", "a21_ima", "a21_ima");

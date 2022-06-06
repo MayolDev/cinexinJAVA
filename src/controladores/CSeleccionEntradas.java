@@ -55,7 +55,7 @@ public class CSeleccionEntradas extends HttpServlet {
 		JSON = request.getParameter("horas");
 		Parseamiento parse;
 		parse = new Parseamiento();
-
+		//leemos JSON que nos llega por parametro y devolvemos  el precio. Comprobamos el precio de la base de datos y lo multiplicamos por el numero de entradas seleccionado.
 		if(JSON != null){
 
 		    JSONParser parser = new JSONParser();
@@ -86,7 +86,6 @@ public class CSeleccionEntradas extends HttpServlet {
 
 
 		      } catch (ParseException e) {
-		        // TODO Auto-generated catch block
 		        e.printStackTrace();
 		        response.sendRedirect("/cinexin/");
 		      }

@@ -41,7 +41,7 @@ public class CEliminarbutaca extends HttpServlet {
 		
 	}
 
-
+	//Eliminar butaca, mediante el id.
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection con;

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import models.ButacaSesion;
 import models.Ticket;
-
+//Hilo usado como timer para que el usuario efectue el pago antes de que termine este timer. SI no, se borrará su reserva de butacas y su ticket de entrada.
 public class TimerCheckout extends Thread{
 
 	int tiempo;

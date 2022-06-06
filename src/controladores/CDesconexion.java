@@ -15,7 +15,7 @@ public class CDesconexion extends HttpServlet {
 	HttpSession sesion;
        
 
-
+	//Cerrar sesion
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		sesion = request.getSession();

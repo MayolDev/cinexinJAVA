@@ -1,11 +1,9 @@
 package controladores;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +17,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import utils.Encriptador;
 
 /**
  * Servlet implementation class CGenerarEntrada
@@ -40,12 +37,16 @@ public class CGenerarEntrada extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		sesion = request.getSession();
+		//Si el usuario tienes todos esos parametros, seguimos.
 		if(sesion.getAttribute("hash") != null || sesion.getAttribute("id_sesion") != null 
 		|| sesion.getAttribute("nombre_pelicula") != null || sesion.getAttribute("nombre_sala") != null
 		|| sesion.getAttribute("fecha") != null || sesion.getAttribute("hora_entrada") != null
 		|| sesion.getAttribute("cantidad_nino") != null || sesion.getAttribute("cantidad_normal") != null
 		|| sesion.getAttribute("posicionButacas") != null || sesion.getAttribute("nombre_cine") != null){
+
+			//guardamos variables
 			String hash, nombre_pelicula, nombre_sala, posicionButacas, nombre_cine;
 			Date fecha;
 			Time hora_entrada;
@@ -60,19 +61,22 @@ public class CGenerarEntrada extends HttpServlet {
 			posicionButacas = (String)sesion.getAttribute("posicionButacas");
 			id_sesion = (int)sesion.getAttribute("id_sesion");
 			nombre_cine = (String)sesion.getAttribute("nombre_cine");
+			//Creamos un stream
 			OutputStream out = response.getOutputStream(); /* Get the output stream from the response object */
 			try {
 		   
 	   
-					
-			//Invoke BarcodeQRCode class to create QR Code for the calendar
+			
+			//Invoke BarcodeQRCode class to create QR Code for the calendar. Metemos la id de la sesion y el hash, para que otro aparato programado pueda 
+			//comprobarlo.Mediante la id sesion y el hash podemos encontrar los tickets asociadas a esta entrada
 			BarcodeQRCode my_code = new BarcodeQRCode("id_sesion=" + id_sesion + "&hash=" + hash, 1, 1, null);
 			
-			//PDF option is selected. Generate QR code into a PDF docuement and send this response to the output.
+			// Generate QR code into a PDF docuement and send this response to the output.Usamos la libreria itextpdf
 		   
 					response.setContentType("application/pdf");
 					Document document = new Document();            
 					PdfWriter.getInstance(document, out);
+					//Creamos el documento
 					document.open();
 					document.add(new Paragraph("Tus entradas para " + nombre_pelicula + " en la fecha:  " + fecha + " en el cine: " + nombre_cine));           
 					document.add(my_code.getImage());

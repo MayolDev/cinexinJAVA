@@ -37,6 +37,7 @@ public class CPeticionAPi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
 
+	//Pequeña API para peticiones Get, en las que se le pasa en formato JSON los objetos para luego ser tratados en la vista por Javascript
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

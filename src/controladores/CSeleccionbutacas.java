@@ -37,6 +37,9 @@ public class CSeleccionbutacas extends HttpServlet {
 		response.sendRedirect("/cinexin/");
 	}
 
+
+	//comprobamos el numero de entradas escogido por el usuario
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

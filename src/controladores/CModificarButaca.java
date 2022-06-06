@@ -21,7 +21,7 @@ public class CModificarButaca extends HttpServlet {
     HttpSession sesion;
     Butaca butaca;
  
-
+	//recogemos los valores en el get, del componente sin modificar
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Parseamiento parse;
@@ -67,6 +67,7 @@ public class CModificarButaca extends HttpServlet {
 		
 	}
 
+	//En el post recogemos los valores a modificar y modificamos
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

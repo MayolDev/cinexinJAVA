@@ -38,7 +38,7 @@ public class CCartelera extends HttpServlet {
 	    }
 	}
 
-	
+	//Mostrar cartelera, con paginacion
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sesion = request.getSession();
 		Connection con;
@@ -60,7 +60,7 @@ public class CCartelera extends HttpServlet {
 	    }else {
 	    	
 	    	cartelera = new Cartelera(con);
-			
+			//paginacion
 			if(request.getParameter("page") != null) {
 				try {
 					pagina = parse.getInteger(request.getParameter("page")) ;
@@ -87,7 +87,7 @@ public class CCartelera extends HttpServlet {
 				
 			}
 			
-			
+			//obtengo las carteleras de 5 en 5
 			carteleras = new Cartelera[5];
 			carteleras = cartelera.ObtenerCarteleras( 5, offset );
 			request.setAttribute("rs", carteleras);

@@ -25,6 +25,20 @@ public class CPago extends HttpServlet {
 	HttpSession sesion;
 	Pago pago;
 	
+	/*ALgoritmo de luhn, para comprobar la validez de las tarjetas introducidas. 
+	 * 
+	 * 
+	La fórmula verifica un número contra su dígito de chequeo incluido, el cual es usualmente agregado a un número de cuenta parcial para generar el número de cuenta completo. 
+	Este número de cuenta debe pasar la siguiente prueba:
+
+    1 A partir del dígito de chequeo incluido, el cual está a la derecha de todo el número, ir de derecha a izquierda duplicando cada segundo dígito.
+    2 Sumar los dígitos del resultado: (ejemplo: 10 = 1 + 0 = 1, 14 = 1 + 4 = 5) juntos con los dígitos sin duplicar del número original.
+    3 Si el total de módulo 10 es igual a 0 (si el total termina en cero), entonces el número es válido de acuerdo con la fórmula Luhn, de lo contrario no es válido.
+	 * 
+	 * 
+	 * 
+	*/
+	
     public static boolean luhnTest(String numero){
         
         int s1 = 0, s2 = 0;
@@ -61,6 +75,7 @@ public class CPago extends HttpServlet {
 		String email, numeroTarjeta, caducidad, cvv, titular;
 		Email Correo;
 		TimerCheckout timer;
+		//Expresiones para comprobar numero de tarjeta, email y fecha de caducidad.
 		String regex = "^(\\d\\s?){15,16}$"; // 16 digitos o de 4 en 4 separados por espacios.
 		String regexemail = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"; 
 		String regexcaducidad = "^(0[1-9]|1[0-2])\\/?([0-9]{2})$";
@@ -72,7 +87,7 @@ public class CPago extends HttpServlet {
 		titular = request.getParameter("titular");
 
 		
-
+		//comprobaciones de valores recogido y atributos de sesion
 		if((email != "" && email.matches(regexemail)) 
 		&& (numeroTarjeta != "" && numeroTarjeta.matches(regex) ) 
 		&& (caducidad != "" && caducidad.matches(regexcaducidad))
@@ -83,7 +98,7 @@ public class CPago extends HttpServlet {
 		&& sesion.getAttribute("preciototal") != null
 		&& sesion.getAttribute("ticketid") != null){
 
-
+			//SI pasa la validez de la tarjeta
 			if(luhnTest(numeroTarjeta.replace(" ", ""))) {
 			
 				long precioTotal = (long) sesion.getAttribute("preciototal");
@@ -91,9 +106,12 @@ public class CPago extends HttpServlet {
 				con = (Connection)sesion.getAttribute("conexion");
 				String id_ticket = (String)sesion.getAttribute("ticketid");
 				java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+
+				//Apagamos el timer de la pasarela de pago
 				timer = (TimerCheckout) sesion.getAttribute("timercheckout");
 				timer.interrupt();
 				
+				//Añadimos el pago a la base de datos
 				pago = new Pago(con);
 				pago.setCantidad((long)sesion.getAttribute("preciototal"));
 				pago.setId("" + LocalDateTime.now() + precioTotal + titular );
@@ -103,6 +121,7 @@ public class CPago extends HttpServlet {
 
 				pago.insertarPago();
 
+				//Enviamos correo al usuario
 				String asunto = "Pago realizado en Cinexin";
 				String cuerpo = "Gracias por la compra, estamos generando su entrada, espero que disfrutes de la película." ;
 				
