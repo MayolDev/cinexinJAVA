@@ -61,7 +61,6 @@ public class CSeleccionbutacas extends HttpServlet {
 
 			cantidad_nino = parse.getInteger(request.getParameter("ninos"));
 			cantidad_normal = parse.getInteger(request.getParameter("normal"));
-			System.out.println(cantidad_nino + " - "+ cantidad_normal );
 
 			if(cantidad_nino > 0 || cantidad_normal > 0 ){
 				precio = new Precioentradas(con);
@@ -81,7 +80,6 @@ public class CSeleccionbutacas extends HttpServlet {
 				sala = new Sala(con);
 				sala.setId((String) sesion.getAttribute("id_sala"));
 				sala = sala.obtenerSalaPorId();
-				System.out.println(sala.getNombre());
 				request.setAttribute("nombre_sala", sala.getNombre());
 
 

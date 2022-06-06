@@ -145,7 +145,7 @@ const tabla = document.querySelector(".mostrartabla");
                 + "</form>"
                 +"</td>"
                 +"<td>"
-                + "<form method='get' action='/cinexin/administracion/modificarsala'>"
+                + "<form method='get' action='/cinexin/administracion/modificarbutaca'>"
                 + "<input type='submit' value='Modificar'/>"
                 + "<input type='hidden' value='" + asiento.id+ "' name='id' />"
                 + "<input type='hidden' value='" + asiento.id_sala+ "' name='id_sala' />"

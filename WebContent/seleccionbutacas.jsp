@@ -70,7 +70,7 @@ if(request.getAttribute("error") != null){
     <title>Cinexin 🎬 - Tu cine de confianza</title>
     <link rel="icon" type="image/x-icon" href="/cinexin/images/favicon.ico">
     <link rel="stylesheet" href="/cinexin/css/global.css">
-    <link rel="stylesheet" href="/cinexin/css/seleccion.css">
+    <link rel="stylesheet" href="/cinexin/css/seleccion-butacas.css">
 
 </head>
 <body>

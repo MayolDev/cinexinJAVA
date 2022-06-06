@@ -11,16 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import models.Pelicula;
+import models.Sala;
 import models.Usuario;
 
 
-
-@WebServlet("administracion/eliminarpelicula")
-public class CEliminarpelicula extends HttpServlet {
+@WebServlet("administracion/eliminarsala")
+public class CEliminarsala extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	HttpSession sesion;
-	Pelicula pelicula;
+	Sala sala;
        
  
 
@@ -35,7 +34,7 @@ public class CEliminarpelicula extends HttpServlet {
 	    	
 	    }else {
 	    	
-			response.sendRedirect("peliculas");
+			response.sendRedirect("sala.jsp");
 
 	    }
 		
@@ -48,6 +47,7 @@ public class CEliminarpelicula extends HttpServlet {
 		
 		Connection con;
 		String codigo;
+
 		sesion = request.getSession();
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
@@ -58,18 +58,18 @@ public class CEliminarpelicula extends HttpServlet {
 	    	
 	    	con = (Connection) sesion.getAttribute("conexion");
 			
-	    	pelicula = new Pelicula(con);
+	    	sala = new Sala(con);
 			
 			codigo = request.getParameter("id");
-			pelicula.setId(codigo);;
-			int filas = pelicula.eliminarPelicula();
+			sala.setId(codigo);
+			int filas = sala.eliminarSala();
 
 			if(filas != -1) {
-				response.sendRedirect("peliculas");
+				response.sendRedirect("sala.jsp");
 
 			}else {
 				request.setAttribute("DeleteError", true);
-				request.getRequestDispatcher("peliculas").forward(request, response);
+				request.getRequestDispatcher("/cinexin/administracion/sala.jsp").forward(request, response);
 			}
 			
 			

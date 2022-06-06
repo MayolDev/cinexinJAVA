@@ -37,7 +37,6 @@ public class CPeticionAPi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
 
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -53,10 +52,10 @@ public class CPeticionAPi extends HttpServlet {
 		con = (Connection)sesion.getAttribute("conexion");
 		peticion = request.getParameter("peticion");
 		DateFormat format = new SimpleDateFormat("HH:mm");
-		
-		PrintWriter pw=response.getWriter();
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
+		PrintWriter pw=response.getWriter();
+
 	    
 	    if(peticion == null) {
 			JSONObject jsonObj;
@@ -208,7 +207,6 @@ public class CPeticionAPi extends HttpServlet {
 						JSONArray arrButacasOcupadas = new JSONArray();   
 						
 						for(ButacaSesion unaButaca: horarios) {
-							System.out.println(unaButaca);
 	
 							ButacaOcupadaJson = new JSONObject();
 							ButacaOcupadaJson.put("id_butaca", unaButaca.getId_butaca());
@@ -219,7 +217,6 @@ public class CPeticionAPi extends HttpServlet {
 							arrButacasOcupadas.add(ButacaOcupadaJson);
 							
 						}
-						System.out.println(arrButacasOcupadas);
 						pw.print(arrButacasOcupadas);
 	
 	
@@ -449,7 +446,6 @@ public class CPeticionAPi extends HttpServlet {
 							arrSesiones2.add(sesion2JSON);
 							
 						}
-						System.out.println(arrSesiones2);
 
 						pw.print(arrSesiones2);
 
@@ -481,10 +477,13 @@ public class CPeticionAPi extends HttpServlet {
 						provinciasJson = new JSONObject();
 						provinciasJson.put("id_provincia", unaProvincia.getId_provincia());
 						provinciasJson.put("nombre", unaProvincia.getNombre());
+
 						arrProvincias.add(provinciasJson);
 						
 					}
+					
 
+				    
 					pw.print(arrProvincias);
 
 				break;

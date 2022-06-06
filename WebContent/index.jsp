@@ -156,7 +156,7 @@
 
     <p>© 2022 MayolDev, Inc. All rights reserved.</p>
 </footer>
-<script src="/cinexin/scripts/menu.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/cinexin/scripts/menu.js"></script>
 
 </body>
 </html>

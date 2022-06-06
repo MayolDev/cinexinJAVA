@@ -27,7 +27,6 @@ const tabla2 = document.querySelector(".mostrartabla2");
             +"<th>id_cartelera</th>"
             +"<th>id_pelicula</th>"
             +"<th>&nbsp;</th>"
-            +"<th>&nbsp;</th>"
 
             +"</tr>"
             +"</thead>"
@@ -47,14 +46,6 @@ const tabla2 = document.querySelector(".mostrartabla2");
 
                 + "</form>"
                 +"</td>"
-                +"<td>"
-                + "<form method='get' action='/cinexin/administracion/modificarcontenido'>"
-                + "<input type='submit' value='Modificar'/>"
-                + "<input type='hidden' value='" + contenido.id_cartelera+ "' name='id_cartelera' />"
-                + "<input type='hidden' value='" + contenido.id_pelicula+ "' name='id_pelicula' />"
-
-
-                + "</form></td>"
                 + "</tr>"
 
 

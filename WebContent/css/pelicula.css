@@ -90,3 +90,42 @@ p{
     font: var(--body-14regular);
     color: var(--grey-3);
 }
+
+/*---- TABLET ----*/
+@media only screen and (max-width: 930px) and (min-width: 450px) {
+   
+    .intro{
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+
+    .pelicula , .horario{
+        width: 100%;
+    }
+    .horario{
+        margin-bottom: 20px;
+    }
+    iframe{
+        width: 100%;
+    }
+
+
+  }
+  /*---- MOBILE----*/
+  @media only screen and (max-width: 450px) {
+    .intro{
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+
+    .pelicula , .horario{
+        width: 100%;
+    }
+    .horario{
+        margin-bottom: 20px;
+    }
+
+    iframe{
+        width: 100%;
+    }
+  }

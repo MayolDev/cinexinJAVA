@@ -90,8 +90,7 @@ public class Canadirsesion extends HttpServlet {
 				id = parse.getInteger((request.getParameter("id")));
 				fecha = Date.valueOf(strFecha);
 
-				System.out.println(strHora_entrada);
-				System.out.println(strHora_salida);
+				
 
 
 				hora_entrada = Time.valueOf(strHora_entrada + ":00");

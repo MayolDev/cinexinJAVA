@@ -69,12 +69,7 @@ public class CPago extends HttpServlet {
 		cvv = request.getParameter("cvv");
 		titular = request.getParameter("titular");
 
-		System.out.println(email.matches(regexemail));
-		System.out.println(numeroTarjeta.matches(regex));
-		System.out.println(caducidad.matches(regexcaducidad));
-		System.out.println(regex);
-		System.out.println(regexemail);
-		System.out.println(regexcaducidad);
+		
 
 		if((email != "" && email.matches(regexemail)) 
 		&& (numeroTarjeta != "" && numeroTarjeta.matches(regex) ) 

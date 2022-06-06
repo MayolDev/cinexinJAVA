@@ -25,7 +25,7 @@ String id, nombre;
 
 id = (String)request.getAttribute("id");
 
-
+nombre = (String)request.getAttribute("nombre");
 
 
 request.setAttribute("id", id);

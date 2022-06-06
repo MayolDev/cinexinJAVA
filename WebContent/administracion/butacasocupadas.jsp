@@ -76,7 +76,7 @@
 
     <p>© 2022 MayolDev, Inc. All rights reserved.</p>
 </footer>
-<script src="/cinexin/scripts/horario.js"></script>
+<script src="/cinexin/scripts/butacasocupadas.js"></script>
 
 
 

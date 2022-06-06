@@ -190,9 +190,14 @@ hr{
 
 /*---- TABLET ----*/
 @media only screen and (max-width: 930px) and (min-width: 450px) {
-   
+    
     section{
-        width: 100%;
+        width: 90%;
+    }
+    article{
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items:center ;
     }
 
 
@@ -200,16 +205,10 @@ hr{
   /*---- MOBILE----*/
   @media only screen and (max-width: 450px) {
     section{
-        width: 100%;
-    }
-    section:nth-child(2) > h1{
-        display: none;
+        width: 90%;
     }
 
-    section:nth-child(2){
-        border-radius: 0px;
-    }
-    .pelicula{
-        display: none;
+    article{
+        flex-direction: column-reverse;
     }
   }

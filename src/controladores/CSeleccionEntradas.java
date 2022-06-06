@@ -63,10 +63,6 @@ public class CSeleccionEntradas extends HttpServlet {
 		    try {
 		        obj = (JSONObject) parser.parse(JSON);
 
-		        System.out.println(obj.get("id_sala"));
-		        System.out.println(obj.get("id"));
-		        System.out.println(obj.get("fecha"));
-		        System.out.println(obj.get("hora_entrada"));
 		        id_sala = (String) obj.get("id_sala");
 				id_sesion = (int)(long) obj.get("id");
 				fecha = Date.valueOf((String) obj.get("fecha"));

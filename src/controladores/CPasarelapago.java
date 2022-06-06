@@ -47,7 +47,6 @@ public class CPasarelapago extends HttpServlet {
 
 		if(sesion.getAttribute("timer") == null || (boolean)sesion.getAttribute("timer") == false ){
 
-			System.out.println("sesion timer: " + sesion.getAttribute("timer"));
 
 			String butacas, posicionButacas;
 			int cantidad_nino, cantidad_normal, cantidadtotal;
@@ -58,7 +57,6 @@ public class CPasarelapago extends HttpServlet {
 			if(request.getParameter("butacas") != null || sesion.getAttribute("cantidad_nino") != null || sesion.getAttribute("cantidad_normal") != null || request.getParameter("posicion") != null){
 				butacas = request.getParameter("butacas");
 				posicionButacas = request.getParameter("posicion");
-				System.out.println("butacas: " + butacas);
 				butacas = butacas.replace(" ", "");
 				String[] arrButacas = butacas.split(",");
 				cantidad_nino = (int) sesion.getAttribute("cantidad_nino");
@@ -162,7 +160,6 @@ public class CPasarelapago extends HttpServlet {
 		}else{
 
 			if((boolean)sesion.getAttribute("timer") == true){
-				System.out.println("entroooooooo");
 
 				response.sendRedirect("pasarelapago.jsp");
 			}
