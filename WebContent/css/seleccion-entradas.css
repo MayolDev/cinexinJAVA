@@ -100,36 +100,100 @@ section:nth-child(2){
     cursor: pointer;
 }
 
-.forms-celds > input{
-    border-radius: 5px;
-    width: 100%;
-    height: 20px;
-    padding: 10px;
-}
-
-.forms-celds > label{
-    font: var(--body-16regular);
-    color: var(--black)
-}
-
-.forms-celds{
+.asientos-info{
     display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
 
+.asientos-info > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+
+.asientos-info > div > img{
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+
+hr{
+    height: 10px;
+    color: var(--black);
+    background-color: var(--grey-3);
+
+}
+
+.parent {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    
+    }
+
+.parent > img{
+    width: 40px;
+    height: 40px;
+}
+
+.mostrardatos > div{
+
+
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: 100%;
+
+}
+
+.mostrardatos > div > span{
+    font-size: 30px;
+    margin: 0px 10px;
+}
+
+
+.asiento {
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+}
+
+
+.asiento > span{
+    position: absolute;
+    color: white;
+}
+
+.mostrardatos{
+    width: 70%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activo {
+    cursor: pointer;
+}
+
+.asientos{
+    color:grey !important;
 }
 
 
 /*---- TABLET ----*/
 @media only screen and (max-width: 930px) and (min-width: 450px) {
-    
+   
     section{
-        width: 90%;
-    }
-    article{
-        flex-direction: column-reverse;
-        justify-content: center;
-        align-items:center ;
+        width: 100%;
+        margin: 20px 0px;
     }
 
 
@@ -137,10 +201,17 @@ section:nth-child(2){
   /*---- MOBILE----*/
   @media only screen and (max-width: 450px) {
     section{
-        width: 90%;
+        width: 100%;
+        margin: 20px 0px;
+
     }
 
-    article{
-        flex-direction: column-reverse;
+    .pelicula{
+        flex-direction: column;
+        align-items: center;
     }
+    .pelicula > img{
+        margin-bottom: 10px;
+    }
+    
   }

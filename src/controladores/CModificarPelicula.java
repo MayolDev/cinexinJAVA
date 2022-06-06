@@ -24,7 +24,7 @@ public class CModificarPelicula extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id, nombre, director, trailer, categoria, actores;
+		String id, nombre, director, trailer, categoria, actores, sinopsis;
 		int duracion, calificacion;
 		Parseamiento parse;
 		parse = new Parseamiento();
@@ -46,7 +46,7 @@ public class CModificarPelicula extends HttpServlet {
 
 				duracion = parse.getInteger(request.getParameter("duracion"));
 				calificacion = parse.getInteger(request.getParameter("calificacion"));
-
+				sinopsis = request.getParameter("sinopsis");
 
 
 				request.setAttribute("id", id);
@@ -57,6 +57,7 @@ public class CModificarPelicula extends HttpServlet {
 				request.setAttribute("actores", actores);
 				request.setAttribute("duracion", duracion);
 				request.setAttribute("calificacion", calificacion);
+				request.setAttribute("sinopsis", sinopsis);
 
 
 
@@ -85,7 +86,7 @@ public class CModificarPelicula extends HttpServlet {
 		con =  (Connection)sesion.getAttribute("conexion");
 		Parseamiento parse;
 		parse = new Parseamiento();
-		String id, nombre, director, trailer, categoria, actores;
+		String id, nombre, director, trailer, categoria, actores, sinopsis;
 		int duracion, calificacion;
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
@@ -100,6 +101,8 @@ public class CModificarPelicula extends HttpServlet {
 			trailer = request.getParameter("trailer");
 			categoria = request.getParameter("categoria");
 			actores = request.getParameter("actores");
+			sinopsis = request.getParameter("sinopsis");
+
 
 			duracion = parse.getInteger(request.getParameter("duracion"));
 			calificacion = parse.getInteger(request.getParameter("calificacion"));
@@ -114,7 +117,7 @@ public class CModificarPelicula extends HttpServlet {
 				pelicula.setActores(actores);
 				pelicula.setDuracion(duracion);
 				pelicula.setCalificacion(calificacion);
-
+				pelicula.setSinopsis(sinopsis);
 				pelicula.modificarPelicula();
 				response.sendRedirect("peliculas");
 				

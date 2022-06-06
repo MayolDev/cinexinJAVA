@@ -181,6 +181,8 @@ if(request.getAttribute("insertado") != null){
 			<input name="actores" type="text" value=""/>
 			<label>Introduce calificación</label>
 			<input name="calificacion" type="text" value=""/>
+      <label>Introduce sinopsis</label>
+			<input name="sinopsis" type="text" value=""/>
 			<button>Enviar</button>
 		</form>  
 			</div>

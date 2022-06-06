@@ -57,7 +57,7 @@ cantidad_total = cantidad_nino + cantidad_normal;
     <link rel="icon" type="image/x-icon" href="/cinexin/images/favicon.ico">
     <link rel="stylesheet" href="/cinexin/css/global.css">
     <link rel="stylesheet" href="/cinexin/css/descarga.css">
-    <link rel="stylesheet" href="/cinexin/css/seleccion.css">
+    <link rel="stylesheet" href="/cinexin/css/seleccion-entradas.css">
 
 
 

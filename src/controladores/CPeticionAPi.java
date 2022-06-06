@@ -326,6 +326,8 @@ public class CPeticionAPi extends HttpServlet {
 						peliculaJSON.put("categoria",pelicula1.getCategoria() );
 						peliculaJSON.put("actores",pelicula1.getActores() );
 						peliculaJSON.put("calificacion",pelicula1.getCalificacion() );
+						peliculaJSON.put("sinopsis",pelicula1.getSinopsis() );
+
 						peliculaJSON.put("imagen",Base64.getEncoder().encodeToString(pelicula1.getImagen()));
 
 

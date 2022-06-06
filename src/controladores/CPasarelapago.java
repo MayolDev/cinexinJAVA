@@ -112,7 +112,7 @@ public class CPasarelapago extends HttpServlet {
 							con.setAutoCommit(true);
 							sesion.setAttribute("butacas", butacas);
 							TimerCheckout timer;
-							timer = new TimerCheckout(60000, arrTicketId, arrButacas, ((int)sesion.getAttribute("id_sesion")), con, sesion);
+							timer = new TimerCheckout(300000, arrTicketId, arrButacas, ((int)sesion.getAttribute("id_sesion")), con, sesion);
 							timer.start();
 							sesion.setAttribute("ticketid", arrTicketId[0]);
 							sesion.setAttribute("timercheckout", timer);

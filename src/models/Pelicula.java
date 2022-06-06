@@ -20,6 +20,7 @@ public class Pelicula {
 	String actores;
 	int calificacion;
 	byte[] imagen;
+	String sinopsis;
 	FileInputStream fis;
 	File file;
 	Connection con;
@@ -43,7 +44,7 @@ public class Pelicula {
 		
 		try {
 			
-			String query="INSERT INTO pelicula (id, nombre, duracion, director, trailer, categoria, actores, calificacion, imagen) VALUES (? , ? , ? , ? , ? , ? , ? , ?, ?)"; 
+			String query="INSERT INTO pelicula (id, nombre, duracion, director, trailer, categoria, actores, calificacion, imagen , sinopsis) VALUES (? , ? , ? , ? , ? , ? , ? , ?, ?, ?)"; 
 			PreparedStatement stmt = con.prepareStatement(query);
 			
 			stmt.setString(1,id);
@@ -55,7 +56,8 @@ public class Pelicula {
 			stmt.setString(7, actores);
 			stmt.setInt(8, calificacion);
 			stmt.setBinaryStream(9, fis, (int)file.length());
-			
+			stmt.setString(10, sinopsis);
+
 			filasInsertadas = stmt.executeUpdate();
 			stmt.close();
 			
@@ -77,7 +79,7 @@ public class Pelicula {
 		filasActualizadas = -1;
 		
 		try {
-			String query="UPDATE pelicula SET nombre = ? , duracion = ? , director = ? , trailer = ? , categoria = ? , actores = ? , calificacion = ? WHERE id = ?" ; 
+			String query="UPDATE pelicula SET nombre = ? , duracion = ? , director = ? , trailer = ? , categoria = ? , actores = ? , calificacion = ?, sinopsis = ? WHERE id = ?" ; 
 			PreparedStatement stmt = con.prepareStatement(query);
 			
 			stmt.setString(1, nombre);
@@ -87,7 +89,8 @@ public class Pelicula {
 			stmt.setString(5, categoria);
 			stmt.setString(6, actores);
 			stmt.setInt(7, calificacion);
-			stmt.setString(8, id);
+			stmt.setString(8, sinopsis);
+			stmt.setString(9, id);
 
 			filasActualizadas = stmt.executeUpdate();
 			stmt.close();
@@ -146,6 +149,7 @@ public class Pelicula {
 				pelicula.setActores(rs.getString(7));
 				pelicula.setCalificacion(rs.getInt(8));
 				pelicula.setImagen(rs.getBytes(9));
+				pelicula.setSinopsis(rs.getString(10));
 				
 				peliculas[indice] = pelicula;
 				
@@ -218,6 +222,7 @@ public class Pelicula {
 				pelicula.setActores(rs.getString(7));
 				pelicula.setCalificacion(rs.getInt(8));
 				pelicula.setImagen(rs.getBytes(9));
+				pelicula.setSinopsis(rs.getString(10));
 
 				
 				peliculas[indice] = pelicula;
@@ -268,6 +273,7 @@ public class Pelicula {
 				pelicula.setActores(rs.getString(7));
 				pelicula.setCalificacion(rs.getInt(8));
 				pelicula.setImagen(rs.getBytes(9));
+				pelicula.setSinopsis(rs.getString(10));
 
 			}	
 			
@@ -418,6 +424,14 @@ public class Pelicula {
 
 	public void setFile(File file) {
 		this.file = file;
+	}
+
+	public String getSinopsis() {
+		return sinopsis;
+	}
+
+	public void setSinopsis(String sinopsis) {
+		this.sinopsis = sinopsis;
 	}
 	
 	

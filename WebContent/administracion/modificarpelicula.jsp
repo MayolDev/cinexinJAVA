@@ -20,7 +20,7 @@ if(request.getParameter("id") == null){
 	response.sendRedirect("/administracion/peliculas");
 }
 
-String id, nombre, director, trailer,  categoria, actores;
+String id, nombre, director, trailer,  categoria, actores, sinopsis;
 int duracion, calificacion;
 
 
@@ -32,6 +32,7 @@ categoria = (String)request.getAttribute("categoria");
 actores = (String)request.getAttribute("actores");
 duracion = (int)request.getAttribute("duracion");
 calificacion = (int)request.getAttribute("calificacion");
+sinopsis = (String)request.getAttribute("sinopsis");
 
 
 
@@ -109,6 +110,8 @@ request.setAttribute("id", id);
 <input name="actores" type="text" value="<%=actores %>"/>
 <label>Introduce calificacion</label>
 <input name="calificacion" type="number" value="<%=calificacion %>"/>
+<label>Introduce sinopsis</label>
+<input name="sinopsis" type="text" value="<%=sinopsis %>"/>
 
 <button>Enviar</button>
 

@@ -20,8 +20,6 @@ sesion = request.getSession();
     <title>Cinexin 🎬 - Tu cine de confianza</title>
     <link rel="icon" type="image/x-icon" href="/cinexin/images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/cinexin/css/global.css" >
-    <link rel="stylesheet" type="text/css" href="/cinexin/css/other.css" >
-
 </head>
 <body >
 <nav class='top-nav'>
@@ -60,11 +58,9 @@ sesion = request.getSession();
 
 <article>
 
-<h1>¿Quiénes somos?</h1>
-<p>Somos una cadena de cines repartidos por España, que desde 2005 estamos brindando el mejor servicio a nuestros clientes, con unas proyecciones de calidad.</p>
-<p>Nuestro primer cine abrió el 10 de junio de 2005, en gran vía Madrid.</p>
-<img src="/cinexin/images/slider2.jpg" alt="Primer cine de nuestra cadena"  width="600px" />
-<p>Actualmente damos servicio vía online desde esta web, dando la posibilidad a nuestros clientes de comprar las entradas para su película favorita de forma totalmente telemática, mediante un sencillo proceso de compra.</p>
+<h1>Ups.... página no encontrada.</h1>
+<a href="/cinexin/">Volver al inicio</a>
+
 
 </article>
 </main>

@@ -85,6 +85,8 @@ const tabla2 = document.querySelector(".mostrartabla2");
                     +"<th>categoria</th>"
                     +"<th>actores</th>"
                     +"<th>calificacion</th>"
+                    +"<th>sinopsis</th>"
+
                     +"<th>&nbsp;</th>"
                     +"</tr>"
                     +"</thead>"
@@ -103,6 +105,8 @@ const tabla2 = document.querySelector(".mostrartabla2");
                         + "<td>" + pelicula.categoria + "</td>"
                         + "<td>" + pelicula.actores + "</td>"
                         + "<td>" + pelicula.calificacion + "</td>"
+                        + "<td>" + pelicula.sinopsis + "</td>"
+
 
                         +"<td>"
                         + "<form method='get' action='/cinexin/administracion/modificarpelicula'>"
@@ -115,6 +119,8 @@ const tabla2 = document.querySelector(".mostrartabla2");
                         + "<input type='hidden' value='" + pelicula.categoria+ "' name='categoria' />"
                         + "<input type='hidden' value='" + pelicula.actores+ "' name='actores' />"
                         + "<input type='hidden' value='" + pelicula.calificacion+ "' name='calificacion' />"
+                        + "<input type='hidden' value='" + pelicula.sinopsis+ "' name='sinopsis' />"
+
         
         
                         + "</form></td>"

@@ -116,6 +116,8 @@ if(peliculas != null){
 	  		+ "					<th>categoria</th>\n"
 	  		+ "					<th>actores</th>\n"
 	  		+ "					<th>calificacion</th>\n"
+			+ "					<th>sinopsis</th>\n"
+
 
 	  		+ "					<th>&nbsp;</th>\n"
 	  		+ "					<th>&nbsp;</th>\n"
@@ -150,6 +152,8 @@ if(peliculas != null){
 			out.println("<td>"+peliculas[indice].getCategoria()+"</td>");
 			out.println("<td>"+peliculas[indice].getActores()+"</td>");
 			out.println("<td>"+peliculas[indice].getCalificacion()+"</td>");
+			out.println("<td>"+peliculas[indice].getSinopsis()+"</td>");
+
 
 
 
@@ -172,6 +176,7 @@ if(peliculas != null){
 			out.println("<input type='hidden' value='" + peliculas[indice].getCategoria()+ "' name='categoria' />");
 			out.println("<input type='hidden' value='" + peliculas[indice].getActores()+ "' name='actores' />");
 			out.println("<input type='hidden' value='" + peliculas[indice].getCalificacion()+ "' name='calificacion' />");
+			out.println("<input type='hidden' value='" + peliculas[indice].getSinopsis()+ "' name='sinopsis' />");
 
 
 			out.println("</form></td>");

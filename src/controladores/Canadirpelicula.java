@@ -63,7 +63,7 @@ public class Canadirpelicula extends HttpServlet {
 		pelicula = new Pelicula(con);
 		Parseamiento parse;
 		parse = new Parseamiento();
-		String id, nombre, director, trailer, categoria, actores, strduracion, strcalificacion;
+		String id, nombre, director, trailer, categoria, actores, strduracion, strcalificacion, sinopsis;
 		int duracion, calificacion;
 		Comprobaciones comprobacion;
 		comprobacion = new Comprobaciones();
@@ -78,6 +78,7 @@ public class Canadirpelicula extends HttpServlet {
 		strcalificacion = "";
 		duracion = 0;
 		calificacion = 0;
+		sinopsis = "";
 
 		
 		//imagen
@@ -191,6 +192,9 @@ public class Canadirpelicula extends HttpServlet {
 							case "calificacion":
 								strcalificacion = parametro.getString();
 								break;
+							case "sinopsis":
+								sinopsis = parametro.getString();
+							break;
 						}
 
 
@@ -205,7 +209,8 @@ public class Canadirpelicula extends HttpServlet {
 				|| director.contentEquals("") || !comprobacion.checkStringBetween(director, 1, 120)
 				|| trailer.contentEquals("")
 				|| categoria.contentEquals("") || !comprobacion.checkStringBetween(categoria, 1, 30)
-				|| actores.contentEquals("")  )  {
+				|| actores.contentEquals("") 
+				|| sinopsis.contentEquals("") )  {
 			
 						request.setAttribute("insertado", false);
 						request.getRequestDispatcher("panelcontrol.jsp").forward(request, response);
@@ -228,6 +233,7 @@ public class Canadirpelicula extends HttpServlet {
 					pelicula.setCalificacion(calificacion);
 					pelicula.setFis(fis);
 					pelicula.setFile(file);
+					pelicula.setSinopsis(sinopsis);
 
 
 

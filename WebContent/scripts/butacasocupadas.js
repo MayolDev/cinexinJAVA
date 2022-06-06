@@ -20,12 +20,10 @@ const tabla = document.querySelector(".mostrartabla");
             content = "<thead>" 
                 
             +"<tr>"
-            +"<th>id</th>"
             +"<th>id_butaca</th>"
             +"<th>id_sesion</th>"
             +"<th>id_ticket</th>"
-            +"<th>&nbsp;</th>"
-            +"<th>&nbsp;</th>"
+  
 
             +"</tr>"
             +"</thead>"
@@ -33,30 +31,10 @@ const tabla = document.querySelector(".mostrartabla");
 
             result.map((horario) => {
                 content = content + "<tr> " 
-                + "<td>" + horario.id + "</td>"
                 + "<td>" + horario.id_butaca + "</td>"
                 + "<td>" + horario.id_sesion + "</td>"
                 + "<td>" + horario.id_ticket + "</td>"
 
-
-
-
-                + "<td><form method='post' action='/cinexin/administracion/eliminarbutacaocupada'>"
-                + "<input type='submit' value='Borrar'/>"
-                + "<input type='hidden' value='" + horario.id + "' name='id' />"
-                + "</form>"
-                +"</td>"
-                +"<td>"
-                + "<form method='get' action='/cinexin/administracion/modificarbutacaocupada'>"
-                + "<input type='submit' value='Modificar'/>"
-                + "<input type='hidden' value='" + horario.id+ "' name='id' />"
-                + "<input type='hidden' value='" + horario.id_butaca+ "' name='id_butaca' />"
-                + "<input type='hidden' value='" + horario.id_sesion+ "' name='id_sesion' />"
-                + "<input type='hidden' value='" + horario.id_ticket+ "' name='id_ticket' />"
-
-
-
-                + "</form></td>"
                 + "</tr>"
 
 

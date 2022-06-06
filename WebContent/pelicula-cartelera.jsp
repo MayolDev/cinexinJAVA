@@ -183,7 +183,7 @@ bfoto = pelicula.getImagen();
                 </div>
                 <div class="sinopsis">
                     <h3>Sinopsis</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id velit sed enim molestie pretium sed nec nulla. Donec non augue dignissim, porta sem nec, pretium ante.</p>
+                    <p><% out.print(pelicula.getSinopsis()); %></p>
 
                 </div>
                 <div class="creditos">
