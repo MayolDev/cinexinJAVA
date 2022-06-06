@@ -17,7 +17,7 @@ import models.Usuario;
 import utils.Parseamiento;
 
 
-@WebServlet("/cinexin/administracion/modificarsesion")
+@WebServlet("administracion/modificarsesion")
 public class CModificarSesion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
@@ -36,7 +36,7 @@ public class CModificarSesion extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("/cinexin/index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -59,10 +59,10 @@ public class CModificarSesion extends HttpServlet {
 
 
 
-				request.getRequestDispatcher("/cinexin/administracion/modificarsesion.jsp").forward(request, response);
+				request.getRequestDispatcher("modificarsesion.jsp").forward(request, response);
 
 			}else {
-				response.sendRedirect("/cinexin/administracion/sesiones.jsp");
+				response.sendRedirect("sesiones.jsp");
 			}
 
 	    }
@@ -92,7 +92,7 @@ public class CModificarSesion extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -113,7 +113,7 @@ public class CModificarSesion extends HttpServlet {
 			MSesion.setHora_salida(hora_salida);
 
 			MSesion.modificarSesion();
-				response.sendRedirect("/cinexin/administracion/sesiones.jsp");
+				response.sendRedirect("sesiones.jsp");
 				
 			
 			

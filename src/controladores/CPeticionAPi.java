@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import org.json.simple.*;
 import models.Sala;
 import models.Sesion;
 import utils.Comprobaciones;
@@ -40,28 +41,28 @@ public class CPeticionAPi extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Comprobaciones comprobacion;
 		comprobacion = new Comprobaciones();
-		ObjectMapper mapeador;
 		Parseamiento parse;
 		parse = new Parseamiento();
 		String peticion;
 		Connection con;
 	    sesion = request.getSession();
 		con = (Connection)sesion.getAttribute("conexion");
-
 		peticion = request.getParameter("peticion");
-		
-		mapeador= new ObjectMapper();
+		DateFormat format = new SimpleDateFormat("HH:mm");
 		
 		PrintWriter pw=response.getWriter();
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    
 	    if(peticion == null) {
-	    	
-	    	pw.print(mapeador.writeValueAsString("error"));
+			JSONObject jsonObj;
+	    	jsonObj = new JSONObject();
+	    	jsonObj.put("error", "error");
+	    	pw.print(jsonObj);
 	    	
 	    }else {
 	    	
@@ -91,13 +92,27 @@ public class CPeticionAPi extends HttpServlet {
 			    	salas = new Sala[numeroSalas];
 			    	
 			    	salas = sala.ObtenerSalas(numeroSalas, 0, Sala.BUSQUEDA_CINE);
+			    	
+					JSONObject salasJson;
+					
+					JSONArray arrSalas = new JSONArray();   
+					
+					for(Sala unaSala: salas) {
+						salasJson = new JSONObject();
+						salasJson.put("id", unaSala.getId());
+						salasJson.put("id_cine",unaSala.getId_cine() );
+						salasJson.put("nombre", unaSala.getNombre());
+						arrSalas.add(salasJson);
+						
+					}
 
 
-			    	pw.print(mapeador.writeValueAsString(salas));
+			    	pw.print(arrSalas);
+			    	
 
 		    	}
 		    	break;
-			case "butaca":
+				case "butaca":
 				Butaca butaca;
 				Butaca[] butacas;
 
@@ -110,7 +125,10 @@ public class CPeticionAPi extends HttpServlet {
 
 
 				if(id_sala == null ){
-			    	pw.print(mapeador.writeValueAsString("error"));
+			    	JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 
 				}else{
 					butaca = new Butaca(con);
@@ -125,7 +143,24 @@ public class CPeticionAPi extends HttpServlet {
 
 					butacas = new Butaca[numbutacas];
 					butacas = butaca.ObtenerButacas(numbutacas, 0, Butaca.BUSQUEDA_SALA);
-					pw.print(mapeador.writeValueAsString(butacas));
+
+					JSONObject ButacaJson;
+					
+					JSONArray arrButacas = new JSONArray();   
+					
+					for(Butaca unaButaca: butacas) {
+						ButacaJson = new JSONObject();
+						ButacaJson.put("id", unaButaca.getId());
+						ButacaJson.put("id_sala",unaButaca.getId_sala() );
+						ButacaJson.put("tipo", unaButaca.getTipo());
+						ButacaJson.put("fila", unaButaca.getFila());
+						ButacaJson.put("columna", unaButaca.getColumna());
+
+						arrButacas.add(ButacaJson);
+						
+					}
+
+					pw.print(arrButacas);
 
 
 				}
@@ -135,7 +170,7 @@ public class CPeticionAPi extends HttpServlet {
 		    	 
 		    	
 		    	break;
-			case "butacasocupadas":
+				case "butacasocupadas":
 				ButacaSesion horario;
 				ButacaSesion[] horarios;
 
@@ -145,8 +180,10 @@ public class CPeticionAPi extends HttpServlet {
 				strid_sesion = request.getParameter("id_sesion");
 
 				if(strid_sesion == null || !comprobacion.checkInteger(strid_sesion) ){
-			    	pw.print(mapeador.writeValueAsString("error"));
-
+			    	JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 				}else{
 					id_sesion = parse.getInteger(strid_sesion);
 					horario = new ButacaSesion(con);
@@ -162,13 +199,45 @@ public class CPeticionAPi extends HttpServlet {
 
 					horarios = new ButacaSesion[numeroButacasOcupadas];
 					horarios = horario.ObtenerHorarios(numeroButacasOcupadas, 0, ButacaSesion.BUSQUEDA_SESION);
-					pw.print(mapeador.writeValueAsString(horarios));
+
+					if(horarios[0] != null){
+
+
+						JSONObject ButacaOcupadaJson;
+					
+						JSONArray arrButacasOcupadas = new JSONArray();   
+						
+						for(ButacaSesion unaButaca: horarios) {
+							System.out.println(unaButaca);
+	
+							ButacaOcupadaJson = new JSONObject();
+							ButacaOcupadaJson.put("id_butaca", unaButaca.getId_butaca());
+							ButacaOcupadaJson.put("id_sesion",unaButaca.getId_sesion() );
+							ButacaOcupadaJson.put("id_ticket", unaButaca.getId_ticket());
+	
+	
+							arrButacasOcupadas.add(ButacaOcupadaJson);
+							
+						}
+						System.out.println(arrButacasOcupadas);
+						pw.print(arrButacasOcupadas);
+	
+	
+
+
+					}else{
+						JSONObject jsonObj;
+						jsonObj = new JSONObject();
+						jsonObj.put("error", "error");
+						pw.print(jsonObj);
+					}
+
 
 
 				}
 
 				break;
-			case "contenidocartelera":
+				case "contenidocartelera":
 				ContenidoCartelera contenido;
 				ContenidoCartelera[] contenidos;
 
@@ -181,7 +250,10 @@ public class CPeticionAPi extends HttpServlet {
 
 
 				if(id_cartelera == null){
-					pw.print(mapeador.writeValueAsString("error"));
+					JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 
 				}else {
 
@@ -197,15 +269,27 @@ public class CPeticionAPi extends HttpServlet {
 				contenidos = new ContenidoCartelera[numeroContenido];
 
 					contenidos = contenido.ObtenerContenido(numeroContenido, 0);
+					JSONObject contenidoJSON;
+					
+					JSONArray arrContenidos = new JSONArray();   
+					
+					for(ContenidoCartelera contenido1: contenidos) {
+						contenidoJSON = new JSONObject();
+						contenidoJSON.put("id_cartelera", contenido1.getId_cartelera());
+						contenidoJSON.put("id_pelicula",contenido1.getId_pelicula() );
 
-					pw.print(mapeador.writeValueAsString(contenidos));
 
+						arrContenidos.add(contenidoJSON);
+						
+					}
+
+					pw.print(arrContenidos);
 
 
 
 				}
 				break;
-			case "pelicula":
+				case "pelicula":
 				Pelicula pelicula;
 				Pelicula[] peliculas;
 
@@ -220,7 +304,10 @@ public class CPeticionAPi extends HttpServlet {
 				
 
 				if(ids.length <= 0){
-					pw.print(mapeador.writeValueAsString("error"));
+					JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 
 				}else{
 					pelicula = new Pelicula(con);
@@ -228,7 +315,29 @@ public class CPeticionAPi extends HttpServlet {
 
 					peliculas = pelicula.ObtenerPeliculasPorIds(ids.length, 0, ids);
 
-					pw.print(mapeador.writeValueAsString(peliculas));
+					JSONObject peliculaJSON;
+					
+					JSONArray arrPeliculas = new JSONArray();   
+					
+					for(Pelicula pelicula1: peliculas) {
+						peliculaJSON = new JSONObject();
+						peliculaJSON.put("id", pelicula1.getId());
+						peliculaJSON.put("nombre",pelicula1.getNombre() );
+						peliculaJSON.put("duracion",pelicula1.getDuracion() );
+						peliculaJSON.put("director",pelicula1.getDirector() );
+						peliculaJSON.put("trailer",pelicula1.getTrailer() );
+						peliculaJSON.put("categoria",pelicula1.getCategoria() );
+						peliculaJSON.put("actores",pelicula1.getActores() );
+						peliculaJSON.put("calificacion",pelicula1.getCalificacion() );
+						peliculaJSON.put("imagen",Base64.getEncoder().encodeToString(pelicula1.getImagen()));
+
+
+
+						arrPeliculas.add(peliculaJSON);
+						
+					}
+					pw.print(arrPeliculas);
+
 
 
 
@@ -236,7 +345,6 @@ public class CPeticionAPi extends HttpServlet {
 
 
 			break;
-
 			case "sesion":
 				Sesion MSesion;
 				Sesion[] MSesiones;
@@ -248,7 +356,10 @@ public class CPeticionAPi extends HttpServlet {
 				strfecha = request.getParameter("fecha");
 
 				if(id_sala2 == null || strfecha == null || !comprobacion.checkDate(strfecha)){
-					pw.print(mapeador.writeValueAsString("error"));
+					JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 
 				}else {
 					fecha = Date.valueOf(strfecha);
@@ -263,13 +374,33 @@ public class CPeticionAPi extends HttpServlet {
 
 					MSesiones = new Sesion[numeroSesiones];
 					MSesiones = MSesion.ObtenerSesion(numeroSesiones, 0, Sesion.BUSQUEDA_SALA);
-					pw.print(mapeador.writeValueAsString(MSesiones));
+					JSONObject sesionJSON;
+					
+					JSONArray arrSesiones = new JSONArray();   
+					
+					for(Sesion sesion1: MSesiones) {
+						sesionJSON = new JSONObject();
+						sesionJSON.put("id", sesion1.getId());
+						sesionJSON.put("id_pelicula",sesion1.getId_pelicula() );
+						sesionJSON.put("id_sala",sesion1.getId_sala() );
+						sesionJSON.put("fecha",sesion1.getFecha() );
+						sesionJSON.put("hora_entrada",sesion1.getHora_entrada() );
+						sesionJSON.put("hora_salida",sesion1.getHora_salida() );
+
+
+
+						arrSesiones.add(sesionJSON);
+						
+					}
+
+					pw.print(arrSesiones);
 
 
 				}
 
 
 				break;
+
 				case "sesion2":
 					Sesion MSesion2;
 					Sesion[] MSesiones2;
@@ -282,8 +413,10 @@ public class CPeticionAPi extends HttpServlet {
 					strfecha2 = request.getParameter("fecha");
 
 					if(id_sala3 == null || strfecha2 == null || id_pelicula == null  || !comprobacion.checkDate(strfecha2)){
-						pw.print(mapeador.writeValueAsString("error"));
-
+						JSONObject jsonObj;
+						jsonObj = new JSONObject();
+						jsonObj.put("error", "error");
+						pw.print(jsonObj);
 					}else {
 						fecha2 = Date.valueOf(strfecha2);
 						MSesion2 = new Sesion(con);
@@ -298,14 +431,34 @@ public class CPeticionAPi extends HttpServlet {
 
 						MSesiones2 = new Sesion[numeroSesiones];
 						MSesiones2 = MSesion2.ObtenerSesion(numeroSesiones, 0, Sesion.BUSQUEDA_PELICULA_SALA);
-						pw.print(mapeador.writeValueAsString(MSesiones2));
+						JSONObject sesion2JSON;
+					
+						JSONArray arrSesiones2 = new JSONArray();   
+						
+						for(Sesion sesion2: MSesiones2) {
+							sesion2JSON = new JSONObject();
+							sesion2JSON.put("id", sesion2.getId());
+							sesion2JSON.put("id_pelicula",sesion2.getId_pelicula() );
+							sesion2JSON.put("id_sala",sesion2.getId_sala() );
+							sesion2JSON.put("fecha", "'" + sesion2.getFecha() +"'" );
+							sesion2JSON.put("hora_entrada",format.format(sesion2.getHora_entrada().getTime()) );
+							sesion2JSON.put("hora_salida",format.format(sesion2.getHora_salida().getTime()) );
+	
+	
+	
+							arrSesiones2.add(sesion2JSON);
+							
+						}
+						System.out.println(arrSesiones2);
+
+						pw.print(arrSesiones2);
 
 
 					}
 
 
 				break;
-			case "provincia":
+				case "provincia":
 				Provincia provincia;
 				Provincia[] provincias;
 
@@ -320,9 +473,22 @@ public class CPeticionAPi extends HttpServlet {
 				provincias = new Provincia[numeroProvincias];
 				provincias = provincia.ObtenerProvincias(numeroProvincias, 0);
 
-					pw.print(mapeador.writeValueAsString(provincias));
+					JSONObject provinciasJson;
+					
+					JSONArray arrProvincias = new JSONArray();   
+					
+					for(Provincia unaProvincia: provincias) {
+						provinciasJson = new JSONObject();
+						provinciasJson.put("id_provincia", unaProvincia.getId_provincia());
+						provinciasJson.put("nombre", unaProvincia.getNombre());
+						arrProvincias.add(provinciasJson);
+						
+					}
+
+					pw.print(arrProvincias);
 
 				break;
+
 				case "ciudad":
 				Ciudad ciudad;
 				Ciudad[] ciudades;
@@ -332,8 +498,10 @@ public class CPeticionAPi extends HttpServlet {
 				srtIdProvincia = request.getParameter("id_provincia");
 
 				if(srtIdProvincia == null || !comprobacion.checkInteger(srtIdProvincia)){
-					pw.print(mapeador.writeValueAsString("error"));
-
+					JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 				}else{
 
 					id_provincia = parse.getInteger(srtIdProvincia);
@@ -349,7 +517,21 @@ public class CPeticionAPi extends HttpServlet {
 					ciudades = new Ciudad[numeroCIudades];
 					ciudades = ciudad.ObtenerCiudades(numeroCIudades, 0, Ciudad.BUSQUEDA_PROVINCIA);
 	
-						pw.print(mapeador.writeValueAsString(ciudades));
+						
+					JSONObject ciudadJson;
+					
+					JSONArray arrCiudades = new JSONArray();   
+					
+					for(Ciudad unaCiudad: ciudades) {
+						ciudadJson = new JSONObject();
+						ciudadJson.put("cod_postal", unaCiudad.getCod_postal());
+						ciudadJson.put("id_provincia", unaCiudad.getId_provincia());
+						ciudadJson.put("nombre", unaCiudad.getNombre());
+						arrCiudades.add(ciudadJson);
+						
+					}
+
+					pw.print(arrCiudades);
 
 				}
 
@@ -364,7 +546,10 @@ public class CPeticionAPi extends HttpServlet {
 				id_ciudad = request.getParameter("id_ciudad");
 
 				if(id_ciudad == null ){
-					pw.print(mapeador.writeValueAsString("error"));
+					JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 
 				}else{
 
@@ -380,7 +565,23 @@ public class CPeticionAPi extends HttpServlet {
 					cines = new Cine[numeroCines];
 					cines = cine.ObtenerCines(numeroCines, 0, Cine.BUSQUEDA_CIUDAD);
 	
-						pw.print(mapeador.writeValueAsString(cines));
+					JSONObject cineJson;
+					
+					JSONArray arrCines = new JSONArray();   
+					
+					for(Cine unCine: cines) {
+						cineJson = new JSONObject();
+						cineJson.put("id", unCine.getId());
+						cineJson.put("id_ciudad", unCine.getId_ciudad());
+						cineJson.put("id_cartelera", unCine.getId_cartelera());
+						cineJson.put("nombre", unCine.getNombre());
+						cineJson.put("coordenadas", unCine.getCoordenadas());
+						cineJson.put("disponible", unCine.getDisponible());
+						arrCines.add(cineJson);
+						
+					}
+
+					pw.print(arrCines);
 
 				}
 
@@ -398,7 +599,10 @@ public class CPeticionAPi extends HttpServlet {
 
 				if(request.getParameter("cantidad_normal") == null || request.getParameter("cantidad_nino") == null 
 				|| !comprobacion.checkInteger(request.getParameter("cantidad_nino")) || !comprobacion.checkInteger(request.getParameter("cantidad_normal"))){
-					pw.print(mapeador.writeValueAsString("error"));
+					JSONObject jsonObj;
+					jsonObj = new JSONObject();
+					jsonObj.put("error", "error");
+					pw.print(jsonObj);
 
 				}else{
 					cantidad_nino = parse.getInteger(request.getParameter("cantidad_nino"));
@@ -417,7 +621,7 @@ public class CPeticionAPi extends HttpServlet {
 					precioFinal = (cantidad_nino * precios[1].getPrecio()) + (cantidad_normal * precios[0].getPrecio());
 
 	
-					pw.print(mapeador.writeValueAsString(precioFinal));
+					pw.print(precioFinal);
 
 				}
 
@@ -425,8 +629,13 @@ public class CPeticionAPi extends HttpServlet {
 				
 
 				break;
+
+
 		    default:
-		    	pw.print(mapeador.writeValueAsString("No hay datos para mostrar"));
+		    	JSONObject jsonObj;
+		    	jsonObj = new JSONObject();
+		    	jsonObj.put("error", "error");
+		    	pw.print(jsonObj);
 
 		    
 		    }

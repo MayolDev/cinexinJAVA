@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Precioentradas {
 
@@ -85,7 +84,6 @@ public class Precioentradas {
 		return precios;
 	}
 
-    @JsonIgnore
 	public String getNumeroRegistros() {
 		String numeroRegistros;
 		numeroRegistros = "0";

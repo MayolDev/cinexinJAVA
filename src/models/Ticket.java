@@ -13,6 +13,7 @@ public class Ticket {
 	String id_usuario;
 	long precio;
 	Date fecha_compra;
+	String hash;
 	Connection con;
 
 	public Ticket(Connection con) {
@@ -32,7 +33,7 @@ public class Ticket {
 		
 		try {
 			
-			String query="INSERT INTO ticket (id, id_sesion, id_usuario, precio, fecha_compra) VALUES (? , ? , ? , ? , ? )"; 
+			String query="INSERT INTO ticket (id, id_sesion, id_usuario, precio, fecha_compra, hash) VALUES (? , ? , ? , ? , ?, ? )"; 
 			PreparedStatement stmt = con.prepareStatement(query);
 			
 			stmt.setString(1,id);
@@ -40,7 +41,7 @@ public class Ticket {
 			stmt.setString(3, id_usuario);
 			stmt.setLong(4, precio);
 			stmt.setDate(5, fecha_compra);
-
+			stmt.setString(6, hash);
 			
 			filasInsertadas = stmt.executeUpdate();
 			stmt.close();
@@ -75,14 +76,14 @@ public class Ticket {
 		
 		try {
 			
-			query="SELECT * FROM ticket LIMIT ? OFFSET ? where id_usuario = ? " ; 	
+			query="SELECT * FROM ticket LIMIT ? OFFSET ? where id_sesion = ? AND hash = ? " ; 	
 			
 			stmt = con.prepareStatement(query);
 			
 			stmt.setInt(1, limit);
 			stmt.setInt(2, offset);
-			stmt.setString(3, id_usuario);
-			
+			stmt.setInt(3, id_sesion);
+			stmt.setString(4, hash);
 
 			rs = stmt.executeQuery();
 			stmt.close();
@@ -100,6 +101,7 @@ public class Ticket {
 				ticket.setPrecio(rs.getLong(3));
 				ticket.setFecha_compra(rs.getDate(4));
 				ticket.setId_sesion(rs.getInt(5));
+				ticket.setHash(rs.getString(6));
 
 				tickets[indice] = ticket;
 				
@@ -227,6 +229,14 @@ public class Ticket {
 
 	public void setFecha_compra(Date fecha_compra) {
 		this.fecha_compra = fecha_compra;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 

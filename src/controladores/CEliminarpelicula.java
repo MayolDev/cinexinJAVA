@@ -69,7 +69,7 @@ public class CEliminarpelicula extends HttpServlet {
 
 			}else {
 				request.setAttribute("DeleteError", true);
-				request.getRequestDispatcher("peliculas").forward(request, response);
+				request.getRequestDispatcher("/cinexin/administracion/peliculas").forward(request, response);
 			}
 			
 			

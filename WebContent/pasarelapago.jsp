@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpSession"%>
 <%@ page import="models.Precioentradas"%>
-<%@ page import="java.sql.Date"%>
+<%@ page import="java.sql.*"%>
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.util.Base64"%>
-
+<%@ page import="java.util.*"%>
 
 
 <% 
@@ -15,7 +15,7 @@ sesion = request.getSession();
 if(sesion.getAttribute("cantidad_nino") == null || sesion.getAttribute("cantidad_normal") == null || sesion.getAttribute("preciototal") == null 
 || sesion.getAttribute("id_sala") == null || sesion.getAttribute("nombre_pelicula") == null || sesion.getAttribute("nombre_cine") == null 
 || sesion.getAttribute("hora_entrada") == null || sesion.getAttribute("fecha") == null || sesion.getAttribute("foto_pelicula") == null 
-|| sesion.getAttribute("id_sesion") == null || sesion.getAttribute("nombre_sala") == null || sesion.getAttribute("butacas") == null){
+|| sesion.getAttribute("id_sesion") == null || sesion.getAttribute("nombre_sala") == null || sesion.getAttribute("butacas") == null || sesion.getAttribute("posicionButacas") == null){
     response.sendRedirect("/cinexin/");
 }
 
@@ -23,9 +23,10 @@ long preciototal;
 
 preciototal = (long) sesion.getAttribute("preciototal");
 
-String nombre_pelicula, nombre_cine, nombre_sala, id_sala, butacas;
+String nombre_pelicula, nombre_cine, nombre_sala, id_sala, butacas, posicionButacas;
 Time hora_entrada;
-Date fecha;
+java.sql.Date fecha;
+java.util.Date timerDate;
 byte [] bfoto;
 int cantidad_nino, cantidad_normal, id_sesion, cantidad_total;
 String error = "";
@@ -36,16 +37,16 @@ butacas = (String) sesion.getAttribute("butacas");
 nombre_pelicula = (String) sesion.getAttribute("nombre_pelicula");
 nombre_cine = (String) sesion.getAttribute("nombre_cine");
 hora_entrada = (Time) sesion.getAttribute("hora_entrada");
-fecha = (Date) sesion.getAttribute("fecha");
+fecha = (java.sql.Date) sesion.getAttribute("fecha");
 bfoto = (byte[]) sesion.getAttribute("foto_pelicula");
 nombre_sala = (String) sesion.getAttribute("nombre_sala");
-
+posicionButacas = (String) sesion.getAttribute("posicionButacas");
 id_sesion = (int) sesion.getAttribute("id_sesion");
 cantidad_total = cantidad_nino + cantidad_normal;
 if(request.getAttribute("error") != null){
     error = (String)request.getAttribute("error");
 }
-
+timerDate = (java.util.Date) sesion.getAttribute("timerdate");
 
 
 %>
@@ -77,7 +78,7 @@ if(request.getAttribute("error") != null){
         <article>
 
             <section>
-            
+             <div id="clockdiv"></div>
              <form action="#" method=post>
              <h1>Información personal</h1>
              <p>Completa los datos del formulario para realizar el pago.</p>
@@ -127,7 +128,7 @@ if(request.getAttribute("error") != null){
                         <p><span>Sesion:</span> <% out.print(hora_entrada); %></p>
                         <p><span>Entradas:</span> <% out.print(cantidad_normal); %> Adultos , <% out.print(cantidad_nino); %> niños </p>
                         <p><span>Sala:</span> <% out.print(nombre_sala); %></p>
-                        <p><span>Asiento:</span> <% out.print(butacas); %> </p>
+                        <p><span>Asiento:</span> <% out.print(posicionButacas); %> </p>
                     </div>
                 </div>
                 <p>Se realizará un cargo por servicio por cada entrada dentro de la orden</p>
@@ -135,7 +136,7 @@ if(request.getAttribute("error") != null){
                     <h2>Total (IVA incluido) : </h2>
                     <h4><% out.print(preciototal); %>€</h4>
                 </div>
-               <form id="formulariotarjeta" action="/cinexin/pasarelapago" method="post">
+               <form id="formulariotarjeta" action="/cinexin/pago" method="post">
                     <input id="inputemail" name="email" type="text" value=""  hidden/>
                     <input id="inputnumeroTarjeta" name="numeroTarjeta" type="text" value=""  hidden/>
                     <input id="inputcaducidad" name="caducidad" type="text" value=""  hidden/>
@@ -149,11 +150,56 @@ if(request.getAttribute("error") != null){
         </article>
 
     </main>
-    <footer>
-        created by @mayoldev
-    </footer>
+<footer>
+
+<div id="enlaces">
+    <a href="/cinexin/quienes-somos.jsp">Quienes somos</a>
+    <a href="/cinexin/contacto.jsp">Contacto</a>
+    <a href="/cinexin/politica-privacidad.jsp">Politica privacidad</a>
+</div>
+
+    <p>© 2022 MayolDev, Inc. All rights reserved.</p>
+</footer>
 
 <script src="/cinexin/scripts/pasarelapago.js"></script>
+<script>
+    const fecha = <%=timerDate.getTime()%>;
+    const today = new Date();
 
+    
+    const newYear = new Date(fecha);
+    let dif = (newYear - today);
+    let minutos = Math.round((dif/1000)/60);
+
+
+    var time_in_minutes = minutos ;
+    var current_time = Date.parse(new Date());
+    var deadline = new Date(current_time + time_in_minutes*60*1000);
+
+
+    function time_remaining(endtime){
+        var t = Date.parse(endtime) - Date.parse(new Date());
+        var seconds = Math.floor( (t/1000) % 60 );
+        var minutes = Math.floor( (t/1000/60) % 60 );
+        var hours = Math.floor( (t/(1000*60*60)) % 24 );
+        var days = Math.floor( t/(1000*60*60*24) );
+        return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+    }
+    function run_clock(id,endtime){
+        var clock = document.getElementById(id);
+        function update_clock(){
+            var t = time_remaining(endtime);
+            clock.innerHTML = '<p style="color:red"> Tienes '+t.minutes+'minutos y '+t.seconds+' segundos para realizar el pago</p>';
+            if(t.total<=0){ 
+                clearInterval(timeinterval);
+                clock.innerHTML="<p style='color:red'>Tiempo terminado, por favor, haga el proceso de nuevo. <a href='/cinexin/seleccionbutacas.jsp'>Ir a seleccion de butacas</a></p>"
+                 }
+        }
+        update_clock(); // run function once at first to avoid delay
+        var timeinterval = setInterval(update_clock,1000);
+    }
+    run_clock('clockdiv',deadline);
+
+</script>
 </body>
 </html>

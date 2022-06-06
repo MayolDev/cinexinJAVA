@@ -31,11 +31,11 @@ public class CEliminarbutacasesion extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
-			response.sendRedirect("/cinexin/administracion/butacasocupadas.jsp");
+			response.sendRedirect("butacasocupadas.jsp");
 
 	    }
 		
@@ -60,7 +60,7 @@ public class CEliminarbutacasesion extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -83,7 +83,7 @@ public class CEliminarbutacasesion extends HttpServlet {
 				int filas = butaca.eliminarHorario();
 	
 				if(filas != -1) {
-					response.sendRedirect("/cinexin/administracion/butaca.jsp");
+					response.sendRedirect("butaca.jsp");
 	
 				}else {
 					request.setAttribute("DeleteError", true);

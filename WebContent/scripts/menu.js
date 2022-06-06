@@ -3,6 +3,7 @@ const ciudad = document.querySelector("#ciudad");
 const cine = document.querySelector("#cine");
 const fecha = document.querySelector("#fecha");
 const main = document.querySelector("#cartelera");
+const h1elige = document.querySelector("#elige");
 
 let idCine = 0;
 
@@ -117,7 +118,7 @@ cine.addEventListener("change" , (e) => {
                         const div = document.createElement('div');
 
                         div.innerHTML = "<a href='/cinexin/pelicula-cartelera?id="+pelicula.id+"&idcine="+idCine+"'> <img style='border-radius: 5px' border = '0' src = 'data:image/png;base64," + pelicula.imagen+ " ' width = '200' height = '220' >  </a>"
-
+                        h1elige.innerHTML = "<i class='fa-solid fa-arrow-down-long'></i> Elige tu película abajo <i class='fa-solid fa-arrow-down-long'></i>"
                         content.appendChild(div);
                     }
 

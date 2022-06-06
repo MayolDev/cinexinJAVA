@@ -74,7 +74,7 @@ if(request.getAttribute("numeroRegistros") != null){
     </nav><header>
 
     <div class="app-title">
-        <a href="/cinexin/"><img class="logo" src="../images/logo.png" alt="logo" srcset="" >
+        <a href="/cinexin/"><img class="logo" src="/cinexin/images/logo.png" alt="logo" srcset="" >
         </a> 
         <a href="/cinexin/" style="text-decoration: none"> <h1 class="web-title">Cinexin</h1></a>
     </div>
@@ -179,7 +179,16 @@ out.println("<a href='/cinexin/administracion/provincias?page="+(pagina + 1) +"'
 </article>
 
 </main>
+<footer>
 
+<div id="enlaces">
+    <a href="/cinexin/quienes-somos.jsp">Quienes somos</a>
+    <a href="/cinexin/contacto.jsp">Contacto</a>
+    <a href="/cinexin/politica-privacidad.jsp">Politica privacidad</a>
+</div>
+
+    <p>© 2022 MayolDev, Inc. All rights reserved.</p>
+</footer>
 
 
 </body>

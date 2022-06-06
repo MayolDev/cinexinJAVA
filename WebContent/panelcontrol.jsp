@@ -345,7 +345,16 @@ if(request.getAttribute("insertado") != null){
 </main>
 
 
+<footer>
 
+<div id="enlaces">
+    <a href="/cinexin/quienes-somos.jsp">Quienes somos</a>
+    <a href="/cinexin/contacto.jsp">Contacto</a>
+    <a href="/cinexin/politica-privacidad.jsp">Politica privacidad</a>
+</div>
+
+    <p>© 2022 MayolDev, Inc. All rights reserved.</p>
+</footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>

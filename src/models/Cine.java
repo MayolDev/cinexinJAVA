@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Cine {
 
@@ -70,7 +69,7 @@ public class Cine {
 		filasActualizadas = -1;
 		
 		try {
-			String query="UPDATE cine SET id_provincia = ? , id_cartelera = ? , nombre = ? , coordenadas = ? , disponible = ?   WHERE id = ?" ; 
+			String query="UPDATE cine SET id_ciudad = ? , id_cartelera = ? , nombre = ? , coordenadas = ? , disponible = ?   WHERE id = ?" ; 
 			PreparedStatement stmt = con.prepareStatement(query);
 			
 			stmt.setString(1, id_ciudad);
@@ -244,7 +243,6 @@ public class Cine {
 		return filasEliminadas;
 
 	}
-	@JsonIgnore
 	public String getNumeroRegistros() {
 		String numeroRegistros;
 		numeroRegistros = "0";
@@ -273,7 +271,7 @@ public class Cine {
 		
 		return numeroRegistros;
 	}
-	@JsonIgnore
+	
 	public String getNumeroRegistrosPorCiudad() {
 		String numeroRegistros;
 		numeroRegistros = "0";

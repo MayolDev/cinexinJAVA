@@ -15,7 +15,7 @@ import models.Usuario;
 import utils.Parseamiento;
 
 
-@WebServlet("/cinexin/administracion/modificarciudad")
+@WebServlet("administracion/modificarciudad")
 public class CModificarCiudad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
@@ -32,7 +32,7 @@ public class CModificarCiudad extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("/cinexin/index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -45,10 +45,10 @@ public class CModificarCiudad extends HttpServlet {
 				request.setAttribute("id_provincia", id_provincia);
 				request.setAttribute("nombre", nombre);
 
-				request.getRequestDispatcher("/cinexin/administracion/modificarciudad.jsp").forward(request, response);
+				request.getRequestDispatcher("modificarciudad.jsp").forward(request, response);
 
 			}else {
-				response.sendRedirect("/cinexin/administracion/ciudades");
+				response.sendRedirect("ciudades");
 			}
 
 	    }
@@ -75,7 +75,7 @@ public class CModificarCiudad extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -92,7 +92,7 @@ public class CModificarCiudad extends HttpServlet {
 				ciudad.setNombre(nombre);
 				ciudad.modificarCiudad();
 
-				response.sendRedirect("/cinexin/administracion/ciudades");
+				response.sendRedirect("ciudades");
 				
 			
 			

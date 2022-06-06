@@ -32,11 +32,11 @@ public class CEliminarsesion extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
-			response.sendRedirect("/cinexin/administracion/sesiones");
+			response.sendRedirect("sesiones");
 
 	    }
 		
@@ -58,7 +58,7 @@ public class CEliminarsesion extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -76,7 +76,7 @@ public class CEliminarsesion extends HttpServlet {
 				int filas = MSesion.eliminarSesion();
 
 				if(filas != -1) {
-					response.sendRedirect("/cinexin/administracion/sesiones");
+					response.sendRedirect("sesiones");
 
 				}else {
 					request.setAttribute("DeleteError", true);

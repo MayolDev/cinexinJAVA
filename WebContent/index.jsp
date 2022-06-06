@@ -12,7 +12,10 @@
     <title>Cinexin 🎬 - Tu cine de confianza</title>
     <link rel="icon" type="image/x-icon" href="/cinexin/images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/cinexin/css/global.css" >
-        <link rel="stylesheet" type="text/css" href="/cinexin/css/index.css" >
+    <link rel="stylesheet" type="text/css" href="/cinexin/css/index.css" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script> 
+
 
 </head>
 <body >
@@ -73,14 +76,86 @@
 <main>
 
 <article>
+<h1 id="elige"> <i class="fa-solid fa-arrow-up-long"></i> Elige tu cine en el menú de arriba  <i class="fa-solid fa-arrow-up-long"></i></h1>
+<div id="cartelera">
+</div>
 
-<h1>Cádiz</h1>
-<div id="cartelera"></div>
+<div class="wrapper">
+        <input checked type=radio name="slider" id="slide1" />
+        <input type=radio name="slider" id="slide2" />
+        <input type=radio name="slider" id="slide3" />
+        <input type=radio name="slider" id="slide4" />
+        <input type=radio name="slider" id="slide5" />
+      
+        <div class="slider-wrapper">
+          <div class=inner>
+            <article>
+              <div class="info top-left">
+                <h3>Ven y diviertete en Cinexin</h3></div>
+              <img src="./images/slider1.jpg" />
+            </article>
+      
+            <article>
+              <div class="info bottom-right">
+                <h3>Los mejores cines en tu ciudad</h3></div>
+              <img src="./images/slider2.jpg" />
+            </article>
+      
+            <article>
+              <div class="info bottom-left">
+                <h3>Ven con la mejor compañia</h3></div>
+              <img src="./images/slider3.jpg" />
+            </article>
+      
+            <article>
+              <div class="info top-right">
+                <h3>Los mejores estrenos para ti</h3></div>
+              <img src="./images/slider4.jpg" />
+            </article>
+      
+            <article>
+              <div class="info bottom-left">
+                <h3>Disfruta del buen cine, en Cinexin</h3></div>
+              <img src="./images/slider5.jpg" />
+            </article>
+          </div>
+          <!-- .inner -->
+        </div>
+        <!-- .slider-wrapper -->
+      
+        <div class="slider-prev-next-control">
+          <label for=slide1></label>
+          <label for=slide2></label>
+          <label for=slide3></label>
+          <label for=slide4></label>
+          <label for=slide5></label>
+        </div>
+        <!-- .slider-prev-next-control -->
+      
+        <div class="slider-dot-control">
+          <label for=slide1></label>
+          <label for=slide2></label>
+          <label for=slide3></label>
+          <label for=slide4></label>
+          <label for=slide5></label>
+        </div>
+        <!-- .slider-dot-control -->
+      </div>
 
 
 </article>
 </main>
 
+<footer>
+
+<div id="enlaces">
+    <a href="/cinexin/quienes-somos.jsp">Quienes somos</a>
+    <a href="/cinexin/contacto.jsp">Contacto</a>
+    <a href="/cinexin/politica-privacidad.jsp">Politica privacidad</a>
+</div>
+
+    <p>© 2022 MayolDev, Inc. All rights reserved.</p>
+</footer>
 <script src="/cinexin/scripts/menu.js"></script>
 
 </body>

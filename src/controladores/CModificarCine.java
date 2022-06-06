@@ -14,7 +14,7 @@ import models.Cine;
 import models.Usuario;
 
 
-@WebServlet("/cinexin/administracion/modificarcine")
+@WebServlet("administracion/modificarcine")
 public class CModificarCine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
@@ -29,7 +29,7 @@ public class CModificarCine extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("/cinexin/index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -53,10 +53,10 @@ public class CModificarCine extends HttpServlet {
 
 
 
-				request.getRequestDispatcher("/cinexin/administracion/modificarcine.jsp").forward(request, response);
+				request.getRequestDispatcher("modificarcine.jsp").forward(request, response);
 
 			}else {
-				response.sendRedirect("/cinexin/administracion/cines");
+				response.sendRedirect("cines");
 			}
 
 	    }
@@ -81,7 +81,7 @@ public class CModificarCine extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -104,7 +104,7 @@ public class CModificarCine extends HttpServlet {
 
 				cine.modificarCine();
 
-				response.sendRedirect("/cinexin/administracion/cines");
+				response.sendRedirect("cines");
 				
 			
 			

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Butaca {
 	
@@ -231,7 +230,6 @@ public class Butaca {
 		return filasEliminadas;
 
 	}
-	@JsonIgnore
 	public String getNumeroRegistros() {
 		String numeroRegistros;
 		numeroRegistros = "0";
@@ -260,7 +258,6 @@ public class Butaca {
 		
 		return numeroRegistros;
 	}
-	@JsonIgnore
 	public String getNumeroRegistrosPorSala() {
 		String numeroRegistros;
 		numeroRegistros = "0";

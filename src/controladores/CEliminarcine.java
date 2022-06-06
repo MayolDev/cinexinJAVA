@@ -30,11 +30,11 @@ public class CEliminarcine extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cine/");
 	    	
 	    }else {
 	    	
-			response.sendRedirect("/cinexin/administracion/cines");
+			response.sendRedirect("cines");
 
 	    }
 		
@@ -51,7 +51,7 @@ public class CEliminarcine extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -64,7 +64,7 @@ public class CEliminarcine extends HttpServlet {
 			int filas = cine.eliminarCine();
 
 			if(filas != -1) {
-				response.sendRedirect("/cinexin/administracion/cines");
+				response.sendRedirect("cines");
 
 			}else {
 				request.setAttribute("DeleteError", true);

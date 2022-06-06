@@ -142,6 +142,7 @@ if(request.getAttribute("error") != null){
                 </div>
                 <form action="/cinexin/pasarelapago" method="post">
                     <input id="butacas" name="butacas" type="text" value=""  hidden/>
+                    <input id="butacasPosicion" name="posicion" type="text" value="" hidden/>
                     <button class="enviar" disabled=true>Continuar</button>
                 </form> 
             </section>
@@ -149,17 +150,27 @@ if(request.getAttribute("error") != null){
         </article>
 
     </main>
-    <footer>
-        created by @mayoldev
-    </footer>
+<footer>
+
+<div id="enlaces">
+    <a href="/cinexin/quienes-somos.jsp">Quienes somos</a>
+    <a href="/cinexin/contacto.jsp">Contacto</a>
+    <a href="/cinexin/politica-privacidad.jsp">Politica privacidad</a>
+</div>
+
+    <p>© 2022 MayolDev, Inc. All rights reserved.</p>
+</footer>
 
         <script>
     const mostrador = document.querySelector(".mostrardatos");
+    const butacasPosicion = document.querySelector("#butacasPosicion");
 
 
     fetch('/cinexin/api?peticion=butaca&id_sala=' + <% out.print(id_sala); %> )
 	.then(response => response.json())
 	.then(data => {
+        console.log(data);
+
 		const result = data.filter(dato => dato !== null);
 
 
@@ -170,141 +181,221 @@ if(request.getAttribute("error") != null){
 
 
         fetch('/cinexin/api?peticion=butacasocupadas&id_sesion=' +  <% out.print(id_sesion); %>)
-	    .then(response => response.json())
+	    .then(response =>  response.json())
         .then( (data) => {
+            if(data != null && data.error != "error"){
+                const butacasocupadas = data.filter(dato => dato !== null);
 
-            const butacasocupadas = data.filter(dato => dato !== null);
+                const idsbutacasocupadas = butacasocupadas.map((asiento) => {return asiento.id_butaca});
+                console.log(idsbutacasocupadas);
 
-            const idsbutacasocupadas = butacasocupadas.map((asiento) => {return asiento.id_butaca});
+
+                if(result.length > 0){
+
+                        if(columnA.length > 0) {
+
+                            content = content + "<div class='columnA'>";
+                            content = content + "<span>A</span>";
+
+                            columnA.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+                                console.log(asiento);
+
+                                    if(idsbutacasocupadas.indexOf(asiento.id) != -1){
+                                        content = content + "<div class='asiento'>";
+                                        content = content + "<span>"+ asiento.fila +"</span>";
+                                        content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
+                                        content = content + "</div>";
+                                    }else{
+                                        content = content + "<div class='asiento' >";
+                                        content = content + "<span>"+ asiento.fila +"</span>";
+                                        content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"'  src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
+                                        content = content + "</div>";
+                                    }
+
+                            });
+
+                            content = content + "</div>";
+                        }
+
+                        if(columnB.length > 0) {
+
+                            content = content + "<div class='columnB'>";
+                            content = content + "<span>B</span>";
+
+                            columnB.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+                                    if(idsbutacasocupadas.indexOf(asiento.id) != -1){
+                                        content = content + "<div class='asiento' >";
+                                        content = content + "<span>"+ asiento.fila +"</span>";
+                                        content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
+                                        content = content + "</div>";
+                                    }else{
+                                        content = content + "<div class='asiento' >";
+                                        content = content + "<span>"+ asiento.fila +"</span>";
+                                        content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
+                                        content = content + "</div>";
+                                    }
+                            
+
+                            });
+
+                            content = content + "</div>";
 
 
-            console.log(idsbutacasocupadas);
-            if(result.length > 0){
+                        }
 
-                if(columnA.length > 0) {
 
-                    content = content + "<div class='columnA'>";
-                    content = content + "<span>A</span>";
 
-                    columnA.sort((a,b) => a.fila - b.fila).map((asiento)=> {
-                        console.log(asiento);
+                        if(columnC.length > 0) {
 
-                            if(idsbutacasocupadas.indexOf(asiento.id) != -1){
-                                content = content + "<div class='asiento'>";
-                                content = content + "<span>"+ asiento.fila +"</span>";
-                                content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
-                                content = content + "</div>";
-                            }else{
+                                content = content + "<div class='columnC'>";
+                                content = content + "<span>C</span>";
+
+                                columnC.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+                                    if(idsbutacasocupadas.indexOf(asiento.id) != -1){
+                                            content = content + "<div class='asiento'>";
+                                            content = content + "<span>"+ asiento.fila +"</span>";
+                                            content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
+                                            content = content + "</div>";
+                                    }else{
+                                            content = content + "<div class='asiento' >";
+                                            content = content + "<span>"+ asiento.fila +"</span>";
+                                            content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
+                                            content = content + "</div>";
+                                    }
+
+                                });
+
+                                        content = content + "</div>";
+
+
+                        }
+
+
+
+                        if(columnD.length > 0) {
+
+                            content = content + "<div class='columnD'>";
+                            content = content + "<span>D</span>";
+
+                            columnD.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+                                    if(idsbutacasocupadas.indexOf(asiento.id) != -1){
+                                        content = content + "<div class='asiento'>";
+                                        content = content + "<span>"+ asiento.fila +"</span>";
+                                        content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
+                                        content = content + "</div>";
+                                    }else{
+                                        content = content + "<div class='asiento'>";
+                                        content = content + "<span>"+ asiento.fila +"</span>";
+                                        content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
+                                        content = content + "</div>";
+                                    }
+                                
+                            })
+
+                            content = content + "</div>";
+
+
+                        }
+
+                        mostrador.innerHTML = content;  
+
+
+                }else{
+
+                    mostrador.innerHTML = "<h2>No hay butacas para mostrar</h2>";
+                }
+
+            }else{
+
+                        if(columnA.length > 0) {
+
+                            content = content + "<div class='columnA'>";
+                            content = content + "<span>A</span>";
+
+                            columnA.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+
                                 content = content + "<div class='asiento' >";
                                 content = content + "<span>"+ asiento.fila +"</span>";
                                 content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"'  src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
                                 content = content + "</div>";
-                            }
+                                    
+
+                           })
+                           content = content + "</div>";
+
+                        }
+
+                        if(columnB.length > 0) {
+
+                            content = content + "<div class='columnB'>";
+                            content = content + "<span>B</span>";
+
+                            columnB.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+
+                                    content = content + "<div class='asiento' >";
+                                    content = content + "<span>"+ asiento.fila +"</span>";
+                                    content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
+                                    content = content + "</div>";
+                                    
+                            
+
+                            })
+
+                            content = content + "</div>";
 
 
-                      
- 
-                        
-                        
-
-                    })
-
-                    content = content + "</div>";
+                        }
 
 
-                }
 
-                if(columnB.length > 0) {
+                        if(columnC.length > 0) {
 
-                    content = content + "<div class='columnB'>";
-                    content = content + "<span>B</span>";
+                            content = content + "<div class='columnC'>";
+                            content = content + "<span>C</span>";
 
-                    columnB.sort((a,b) => a.fila - b.fila).map((asiento)=> {
-                            if(idsbutacasocupadas.indexOf(asiento.id) != -1){
-                                content = content + "<div class='asiento' >";
-                                content = content + "<span>"+ asiento.fila +"</span>";
-                                content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
-                                content = content + "</div>";
-                            }else{
-                                content = content + "<div class='asiento' >";
-                                content = content + "<span>"+ asiento.fila +"</span>";
-                                content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
-                                content = content + "</div>";
-                            }
-                       
+                            columnC.sort((a,b) => a.fila - b.fila).map((asiento)=> {
 
-                    })
-
-                    content = content + "</div>";
-
-
-                }
-
-
-                if(columnC.length > 0) {
-
-                    content = content + "<div class='columnC'>";
-                    content = content + "<span>C</span>";
-
-                    columnC.sort((a,b) => a.fila - b.fila).map((asiento)=> {
-                            if(idsbutacasocupadas.indexOf(asiento.id) != -1){
-                                content = content + "<div class='asiento'>";
-                                content = content + "<span>"+ asiento.fila +"</span>";
-                                content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
-                                content = content + "</div>";
-                            }else{
                                 content = content + "<div class='asiento' >";
                                 content = content + "<span>"+ asiento.fila +"</span>";
                                 content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
                                 content = content + "</div>";
-                            }
+                                                
+                            })
 
-                    })
-
-                    content = content + "</div>";
+                            content = content + "</div>";
 
 
-                }
+                        }
 
-                if(columnD.length > 0) {
 
-                    content = content + "<div class='columnD'>";
-                    content = content + "<span>D</span>";
 
-                    columnD.sort((a,b) => a.fila - b.fila).map((asiento)=> {
-                            if(idsbutacasocupadas.indexOf(asiento.id) != -1){
-                                content = content + "<div class='asiento'>";
-                                content = content + "<span>"+ asiento.fila +"</span>";
-                                content = content + "<img class='inactivo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/red-chair.png' width='40px' height='40px'  />"
-                                content = content + "</div>";
-                            }else{
+                        if(columnD.length > 0) {
+
+                            content = content + "<div class='columnD'>";
+                            content = content + "<span>D</span>";
+
+                            columnD.sort((a,b) => a.fila - b.fila).map((asiento)=> {
+
                                 content = content + "<div class='asiento'>";
                                 content = content + "<span>"+ asiento.fila +"</span>";
                                 content = content + "<img class='activo' id='"+asiento.columna+asiento.fila +"' data-id='"+ asiento.id +"' src='/cinexin/images/sillas/black-chair.png' width='40px' height='40px'  />"
                                 content = content + "</div>";
-                            }
-                        
-                    })
+                                    
+                                
+                            })
 
-                    content = content + "</div>";
-
-
-                }
-                mostrador.innerHTML = content;  
+                            content = content + "</div>";
 
 
-                
+                        }
+
+                        mostrador.innerHTML = content;  
 
 
 
-    
-
-                
-
-            }else{
-                mostrador.innerHTML = "<h2>No hay butacas para mostrar</h2>";
             }
-            
+
+
             const butacasActivas = document.querySelectorAll(".activo");
             const numAsientos = document.querySelector(".asientos");
             const butacas = document.querySelector("#butacas");
@@ -317,13 +408,14 @@ if(request.getAttribute("error") != null){
                     const asiento = e.target.id;
                     const asientoid = e.target.dataset.id;
 
-                    if(arrasientos.length +1 <= <% out.print(cantidad_total); %>){
+                    if(arrasientos.length  < <%=cantidad_total %>){
 
                        if( arrasientos.indexOf(asiento) == -1){
                             arrasientos.push(asiento);
                             arrids.push(asientoid);
                             e.target.src="/cinexin/images/sillas/cian-chair.png"
                             numAsientos.innerHTML = arrasientos;
+                            butacasPosicion.value=arrasientos;
                             butacas.value = arrids;
 
                        }else{
@@ -331,6 +423,8 @@ if(request.getAttribute("error") != null){
                            arrids.splice(arrids.indexOf(asientoid), 1);
                             e.target.src="/cinexin/images/sillas/black-chair.png"
                             numAsientos.innerHTML = arrasientos;
+                            butacasPosicion.value=arrasientos;
+
                             butacas.value = arrids;
 
 
@@ -352,6 +446,8 @@ if(request.getAttribute("error") != null){
                             arrids.splice(arrids.indexOf(asientoid), 1);
                             e.target.src="/cinexin/images/sillas/black-chair.png"
                             numAsientos.innerHTML = arrasientos;
+                            butacasPosicion.value=arrasientos;
+
                             butacas.value = arrids;
 
                             enviar.disabled = true;
@@ -361,28 +457,30 @@ if(request.getAttribute("error") != null){
 
                     }
                 
+                    if(arrasientos.length === <%=cantidad_total %>){
+                        enviar.disabled = false;
 
+                    }
               
 
 
 
 
-                })
+                });
                 
-            });
+            })//dd
 
 
         })
 
 
-        let content = "";
+     let content = "";
 
 
 
 		
 		
-	}
-	);
+	});
         
         </script>
 

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ContenidoCartelera {
 
@@ -145,7 +144,6 @@ public class ContenidoCartelera {
 	}
 
 
-	@JsonIgnore
 	public String getNumeroRegistrosPorCiudad() {
 		String numeroRegistros;
 		numeroRegistros = "0";

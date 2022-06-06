@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Provincia {
 
@@ -202,7 +201,6 @@ public class Provincia {
 
 	}
 
-	@JsonIgnore
 	public String getNumeroRegistros() {
 		String numeroRegistros;
 		numeroRegistros = "0";

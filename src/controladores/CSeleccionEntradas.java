@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import models.Precioentradas;
 import utils.Parseamiento;
@@ -58,32 +58,47 @@ public class CSeleccionEntradas extends HttpServlet {
 
 		if(JSON != null){
 
-			ObjectMapper objectMapper = new ObjectMapper();
-			Map<String, Object> jsonMap = objectMapper.readValue(JSON,new TypeReference<Map<String,Object>>(){});
-			System.out.println(jsonMap);
+		    JSONParser parser = new JSONParser();
+		    JSONObject obj;
+		    try {
+		        obj = (JSONObject) parser.parse(JSON);
 
-			id_sala = (String) jsonMap.get("id_sala");
-			id_sesion = (int) jsonMap.get("id");
-			fecha = Date.valueOf((String) jsonMap.get("fecha"));
-			hora_entrada = Time.valueOf((String) jsonMap.get("hora_entrada"));
+		        System.out.println(obj.get("id_sala"));
+		        System.out.println(obj.get("id"));
+		        System.out.println(obj.get("fecha"));
+		        System.out.println(obj.get("hora_entrada"));
+		        id_sala = (String) obj.get("id_sala");
+				id_sesion = (int)(long) obj.get("id");
+				fecha = Date.valueOf((String) obj.get("fecha"));
+				hora_entrada = Time.valueOf((String) obj.get("hora_entrada")+":00");
+				
+				sesion.setAttribute("id_sala", id_sala);
+				sesion.setAttribute("id_sesion", id_sesion);
+				sesion.setAttribute("fecha", fecha);
+				sesion.setAttribute("hora_entrada", hora_entrada);
+				con = (Connection)sesion.getAttribute("conexion");
+				precio = new Precioentradas(con);
+				int cantidadPrecios = parse.getInteger(precio.getNumeroRegistros());
+				if(cantidadPrecios <= 0){
+					cantidadPrecios = 1;
+				}
+				precios = new Precioentradas[cantidadPrecios];
+				precios = precio.ObtenerPrecio(cantidadPrecios, 0);
 
-			sesion.setAttribute("id_sala", id_sala);
-			sesion.setAttribute("id_sesion", id_sesion);
-			sesion.setAttribute("fecha", fecha);
-			sesion.setAttribute("hora_entrada", hora_entrada);
+				request.setAttribute("precios", precios);
+				request.getRequestDispatcher("seleccionentradas.jsp").forward(request, response);
 
-			con = (Connection)sesion.getAttribute("conexion");
-			precio = new Precioentradas(con);
-			int cantidadPrecios = parse.getInteger(precio.getNumeroRegistros());
-			if(cantidadPrecios <= 0){
-				cantidadPrecios = 1;
-			}
-			precios = new Precioentradas[cantidadPrecios];
-			precios = precio.ObtenerPrecio(cantidadPrecios, 0);
 
-			request.setAttribute("precios", precios);
-			request.getRequestDispatcher("seleccionentradas.jsp").forward(request, response);
+		      } catch (ParseException e) {
+		        // TODO Auto-generated catch block
+		        e.printStackTrace();
+		        response.sendRedirect("/cinexin/");
+		      }
+		    
+			
 
+			
+			
 
 
 

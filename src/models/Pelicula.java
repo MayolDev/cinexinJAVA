@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class Pelicula {
@@ -311,7 +310,6 @@ public class Pelicula {
 	}
 
 	
-	@JsonIgnore
 	public String getNumeroRegistros() {
 		String numeroRegistros;
 		numeroRegistros = "0";

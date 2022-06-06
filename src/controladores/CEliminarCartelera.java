@@ -30,11 +30,11 @@ public class CEliminarCartelera extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
-			response.sendRedirect("/cinexin/administracion/carteleras");
+			response.sendRedirect("carteleras");
 
 	    }
 		
@@ -51,7 +51,7 @@ public class CEliminarCartelera extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -64,7 +64,7 @@ public class CEliminarCartelera extends HttpServlet {
 			int filas = cartelera.eliminarCartelera();
 
 			if(filas != -1) {
-				response.sendRedirect("/cinexin/administracion/carteleras");
+				response.sendRedirect("carteleras");
 
 			}else {
 				request.setAttribute("DeleteError", true);

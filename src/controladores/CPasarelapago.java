@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import models.ButacaSesion;
 import models.Ticket;
+import utils.GeneradorStringAleatorio;
 
 /**
  * Servlet implementation class CPasarelapago
@@ -48,14 +49,15 @@ public class CPasarelapago extends HttpServlet {
 
 			System.out.println("sesion timer: " + sesion.getAttribute("timer"));
 
-			String butacas;
+			String butacas, posicionButacas;
 			int cantidad_nino, cantidad_normal, cantidadtotal;
 			Connection con;
 			con = (Connection) sesion.getAttribute("conexion");
 			Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
 			boolean error = false;
-			if(request.getParameter("butacas") != null || sesion.getAttribute("cantidad_nino") != null || sesion.getAttribute("cantidad_normal") != null){
+			if(request.getParameter("butacas") != null || sesion.getAttribute("cantidad_nino") != null || sesion.getAttribute("cantidad_normal") != null || request.getParameter("posicion") != null){
 				butacas = request.getParameter("butacas");
+				posicionButacas = request.getParameter("posicion");
 				System.out.println("butacas: " + butacas);
 				butacas = butacas.replace(" ", "");
 				String[] arrButacas = butacas.split(",");
@@ -64,6 +66,8 @@ public class CPasarelapago extends HttpServlet {
 				cantidadtotal = cantidad_nino + cantidad_normal;
 				String[] arrTicketId;
 				arrTicketId = new String[arrButacas.length];
+				String hash;
+				hash = GeneradorStringAleatorio.generateRandomString(64);
 				if(cantidadtotal == arrButacas.length ){
 					if(sesion.getAttribute("id_sesion") != null || sesion.getAttribute("nombre_pelicula") != null || sesion.getAttribute("nombre_cine") != null || sesion.getAttribute("preciototal") != null){
 						try{
@@ -78,6 +82,7 @@ public class CPasarelapago extends HttpServlet {
 							ticket.setPrecio((long) sesion.getAttribute("preciototal"));
 							ticket.setFecha_compra(timeNow);
 							ticket.setId_sesion((int)sesion.getAttribute("id_sesion"));
+							ticket.setHash(hash);
 							int index= 0;
 							for(String butaca:arrButacas ){
 								idTicket = ((int) sesion.getAttribute("id_sesion")) + ((String)sesion.getAttribute("nombre_pelicula")) + ((String)sesion.getAttribute("nombre_cine")) + butaca;
@@ -111,6 +116,10 @@ public class CPasarelapago extends HttpServlet {
 							TimerCheckout timer;
 							timer = new TimerCheckout(60000, arrTicketId, arrButacas, ((int)sesion.getAttribute("id_sesion")), con, sesion);
 							timer.start();
+							sesion.setAttribute("ticketid", arrTicketId[0]);
+							sesion.setAttribute("timercheckout", timer);
+							sesion.setAttribute("hash", hash);
+							sesion.setAttribute("posicionButacas", posicionButacas);
 							System.out.println(sesion.getAttribute("timer"));
 							request.getRequestDispatcher("pasarelapago.jsp").forward(request, response);
 	

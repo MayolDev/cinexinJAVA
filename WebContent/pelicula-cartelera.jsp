@@ -201,6 +201,15 @@ bfoto = pelicula.getImagen();
 </main>
 
 <script src="/cinexin/scripts/pelicula-cartelera.js"></script>
+<footer>
 
+    <div id="enlaces">
+        <a href="/cinexin/quienes-somos.jsp">Quienes somos</a>
+        <a href="/cinexin/contacto.jsp">Contacto</a>
+        <a href="/cinexin/politica-privacidad.jsp">Politica privacidad</a>
+    </div>
+
+    <p>© 2022 MayolDev, Inc. All rights reserved.</p>
+</footer>
 </body>
 </html>

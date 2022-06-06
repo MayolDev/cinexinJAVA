@@ -31,11 +31,11 @@ public class CEliminarprovincia extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.jsp");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
-			response.sendRedirect("/cinexin/administracion/provincias");
+			response.sendRedirect("provincias");
 
 	    }
 		
@@ -69,7 +69,7 @@ public class CEliminarprovincia extends HttpServlet {
 			int filas = provincia.eliminarProvincia();
 
 			if(filas != -1) {
-				response.sendRedirect("/cinexin/administracion/provincias");
+				response.sendRedirect("provincias");
 
 			}else {
 				request.setAttribute("DeleteError", true);

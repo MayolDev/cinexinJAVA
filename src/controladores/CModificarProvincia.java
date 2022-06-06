@@ -75,7 +75,7 @@ public class CModificarProvincia extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	

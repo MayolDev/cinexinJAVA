@@ -126,7 +126,7 @@ public class CRegistro extends HttpServlet {
 			usuario.setHash(GeneradorStringAleatorio.generateRandomString(64));
 			usuario.InsertarCliente();
 
-			asunto = "Bienvenido a 2dk, Este es su correo de verificacion";
+			asunto = "Bienvenido a Cinexin, Este es su correo de verificacion";
 			cuerpo = "Para verificar su cuenta, haga click en el siguiente enlace: http://ns3034756.ip-91-121-81.eu:8080/cinexin/verificar?correo=" + correo + "&hash=" + usuario.getHash();
 			
 			email = new Email(correo, asunto, cuerpo);

@@ -135,12 +135,31 @@ span{
 
 footer{
     background-color: var(--black);
-    height: 30px;
+    height: 150px;
     color: var(--white);
     font: var(--title-18medium);
     text-align: center;
-    padding-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
+footer > p{
+    color: white !important;
+}
+
+#enlaces > a{
+    color: var(--blue);
+    text-decoration: none;
+    margin: 0px 5px;
+}
+
+#enlaces > a:hover{
+    color: white;
+}
+
 
 a{
     text-decoration: none ;
@@ -167,4 +186,8 @@ a{
 .top-nav > a:hover{
     color: var(--primary);
     background-color: var(--white);
+}
+
+main > article {
+    margin: 20px;
 }

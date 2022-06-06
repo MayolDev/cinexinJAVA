@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Sesion {
 
@@ -338,7 +337,6 @@ public class Sesion {
 		return filasEliminadas;
 
 	}
-	@JsonIgnore
 	public String getNumeroRegistros() {
 		String numeroRegistros;
 		numeroRegistros = "0";
@@ -370,7 +368,6 @@ public class Sesion {
 
 
 
-	@JsonIgnore
 	public String getNumeroRegistrosPorSala() {
 		String numeroRegistros;
 		numeroRegistros = "0";
@@ -402,7 +399,6 @@ public class Sesion {
 		return numeroRegistros;
 	}
 
-	@JsonIgnore
 	public String getNumeroRegistrosPorSalayPelicula() {
 		String numeroRegistros;
 		numeroRegistros = "0";

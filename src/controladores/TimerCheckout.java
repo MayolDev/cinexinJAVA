@@ -38,6 +38,7 @@ public class TimerCheckout extends Thread{
 	public void run() {
 		fechaActual = new Date();
 		fechaSalida = new Date();
+		
 		calendar = Calendar.getInstance();
 		calendar.setTime(fechaActual);
 		calendar.add(Calendar.MINUTE, 5 );

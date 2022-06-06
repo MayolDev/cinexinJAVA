@@ -14,7 +14,7 @@ import models.Cartelera;
 import models.Usuario;
 
 
-@WebServlet("/cinexin/administracion/modificarcartelera")
+@WebServlet("administracion/modificarcartelera")
 public class CModificarCartelera extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
@@ -28,7 +28,7 @@ public class CModificarCartelera extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("/cinexin/index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -43,10 +43,10 @@ public class CModificarCartelera extends HttpServlet {
 
 
 
-				request.getRequestDispatcher("/cinexin/administracion/modificarcartelera.jsp").forward(request, response);
+				request.getRequestDispatcher("modificarcartelera.jsp").forward(request, response);
 
 			}else {
-				response.sendRedirect("/cinexin/administracion/carteleras");
+				response.sendRedirect("carteleras");
 			}
 
 	    }
@@ -70,7 +70,7 @@ public class CModificarCartelera extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -86,7 +86,7 @@ public class CModificarCartelera extends HttpServlet {
 
 				cartelera.modificarCartelera();
 
-				response.sendRedirect("/cinexin/administracion/carteleras");
+				response.sendRedirect("carteleras");
 				
 			
 			

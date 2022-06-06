@@ -15,7 +15,7 @@ import models.Usuario;
 import utils.Parseamiento;
 
 
-@WebServlet("/cinexin/administracion/modificarbutaca")
+@WebServlet("administracion/modificarbutaca")
 public class CModificarButaca extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     HttpSession sesion;
@@ -32,7 +32,7 @@ public class CModificarButaca extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("/cinexin/index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -51,10 +51,10 @@ public class CModificarButaca extends HttpServlet {
 				request.setAttribute("fila", fila);
 
 
-				request.getRequestDispatcher("/cinexin/administracion/modificarbutaca.jsp").forward(request, response);
+				request.getRequestDispatcher("modificarbutaca.jsp").forward(request, response);
 
 			}else {
-				response.sendRedirect("/cinexin/administracion/butaca.jsp");
+				response.sendRedirect("butaca.jsp");
 			}
 
 	    }
@@ -81,7 +81,7 @@ public class CModificarButaca extends HttpServlet {
 		
 		if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != Usuario.ROL_ADMINISTRATIVO) || sesion.getAttribute("rol") == null) {
 			
-	    	response.sendRedirect("index.js");
+	    	response.sendRedirect("/cinexin/");
 	    	
 	    }else {
 	    	
@@ -102,7 +102,7 @@ public class CModificarButaca extends HttpServlet {
 
 				butaca.modificarButaca();
 
-				response.sendRedirect("/cinexin/administracion/butaca.jsp");
+				response.sendRedirect("butaca.jsp");
 				
 			
 			
