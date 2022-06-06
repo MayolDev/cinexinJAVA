@@ -106,5 +106,12 @@ Cinexinsl se reserva el derecho de cambiar los términos de la presente Polític
 
     <p>© 2022 MayolDev, Inc. All rights reserved.</p>
 </footer>
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+
+<script>
+    Weglot.initialize({
+        api_key: 'wg_57eb3e2a1f5c2734a5fc4ba30aec9df54'
+    });
+</script>
 </body>
 </html>

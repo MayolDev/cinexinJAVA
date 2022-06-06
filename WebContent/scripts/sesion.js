@@ -8,7 +8,9 @@ const tabla = document.querySelector(".mostrartabla");
         e.preventDefault();
 		tabla.innerHTML = "";
 	fetch('/cinexin/api?peticion=sesion&id_sala=' + input.value + "&fecha=" + input2.value)
-	.then(response => response.json())
+	.then(response => {
+            console.log(response.json)
+        return response.json()})
 	.then(data => {
 		const result = data.filter(dato => dato !== null);
 

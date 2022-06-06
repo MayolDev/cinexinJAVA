@@ -45,8 +45,8 @@ public class CModificarSesion extends HttpServlet {
 				id_pelicula = request.getParameter("id_pelicula");
 				id_sala = request.getParameter("id_sala");
 				fecha = Date.valueOf(request.getParameter("fecha"));
-				hora_entrada = Time.valueOf(request.getParameter("hora_entrada"));
-				hora_salida = Time.valueOf(request.getParameter("hora_salida"));
+				hora_entrada = Time.valueOf(request.getParameter("hora_entrada") + ":00");
+				hora_salida = Time.valueOf(request.getParameter("hora_salida") + ":00");
 
 
 				request.setAttribute("id", id);

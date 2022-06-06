@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.Pago;
+import utils.Email;
 
 /**
  * Servlet implementation class CPago
@@ -58,6 +59,7 @@ public class CPago extends HttpServlet {
 		
 		sesion = request.getSession();
 		String email, numeroTarjeta, caducidad, cvv, titular;
+		Email Correo;
 		TimerCheckout timer;
 		String regex = "^(\\d\\s?){15,16}$"; // 16 digitos o de 4 en 4 separados por espacios.
 		String regexemail = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"; 
@@ -92,7 +94,6 @@ public class CPago extends HttpServlet {
 				timer = (TimerCheckout) sesion.getAttribute("timercheckout");
 				timer.interrupt();
 				
-				System.out.println(" PRECIO TOTAL =  " + (long)sesion.getAttribute("preciototal"));
 				pago = new Pago(con);
 				pago.setCantidad((long)sesion.getAttribute("preciototal"));
 				pago.setId("" + LocalDateTime.now() + precioTotal + titular );
@@ -101,6 +102,14 @@ public class CPago extends HttpServlet {
 				pago.setMetodo_pago(1);
 
 				pago.insertarPago();
+
+				String asunto = "Pago realizado en Cinexin";
+				String cuerpo = "Gracias por la compra, estamos generando su entrada, espero que disfrutes de la película." ;
+				
+				Correo = new Email(email, asunto, cuerpo);
+				
+				Correo.enviarEmail();
+				
 
 				response.sendRedirect("/cinexin/entradas.jsp");
 

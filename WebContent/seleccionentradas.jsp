@@ -143,6 +143,12 @@ if(precios == null){
 </footer>
 
     <script src="/cinexin/scripts/seleccionentradas.js"></script>
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 
+<script>
+    Weglot.initialize({
+        api_key: 'wg_57eb3e2a1f5c2734a5fc4ba30aec9df54'
+    });
+</script>
 </body>
 </html>

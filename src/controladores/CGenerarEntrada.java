@@ -45,8 +45,8 @@ public class CGenerarEntrada extends HttpServlet {
 		|| sesion.getAttribute("nombre_pelicula") != null || sesion.getAttribute("nombre_sala") != null
 		|| sesion.getAttribute("fecha") != null || sesion.getAttribute("hora_entrada") != null
 		|| sesion.getAttribute("cantidad_nino") != null || sesion.getAttribute("cantidad_normal") != null
-		|| sesion.getAttribute("posicionButacas") != null){
-			String hash, nombre_pelicula, nombre_sala, posicionButacas;
+		|| sesion.getAttribute("posicionButacas") != null || sesion.getAttribute("nombre_cine") != null){
+			String hash, nombre_pelicula, nombre_sala, posicionButacas, nombre_cine;
 			Date fecha;
 			Time hora_entrada;
 			hash = (String)sesion.getAttribute("hash");
@@ -59,6 +59,7 @@ public class CGenerarEntrada extends HttpServlet {
 			cantidad_normal = (int)sesion.getAttribute("cantidad_normal");
 			posicionButacas = (String)sesion.getAttribute("posicionButacas");
 			id_sesion = (int)sesion.getAttribute("id_sesion");
+			nombre_cine = (String)sesion.getAttribute("nombre_cine");
 			OutputStream out = response.getOutputStream(); /* Get the output stream from the response object */
 			try {
 		   
@@ -73,7 +74,7 @@ public class CGenerarEntrada extends HttpServlet {
 					Document document = new Document();            
 					PdfWriter.getInstance(document, out);
 					document.open();
-					document.add(new Paragraph("Tus entradas para " + nombre_pelicula + " en la fecha:  " + fecha ));           
+					document.add(new Paragraph("Tus entradas para " + nombre_pelicula + " en la fecha:  " + fecha + " en el cine: " + nombre_cine));           
 					document.add(my_code.getImage());
 					document.add(new Paragraph("En la Sala " + nombre_sala + " en la sesion de las " + hora_entrada ));    
 					document.add(new Paragraph("Entradas para " + cantidad_nino + " niños y " + cantidad_normal + "adultos." ));           

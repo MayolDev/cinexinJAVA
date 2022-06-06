@@ -19,6 +19,9 @@
     
     HttpSession sesion;
     sesion = request.getSession();
+        if((sesion.getAttribute("rol") != null && (int)sesion.getAttribute("rol") != 2) || sesion.getAttribute("rol") == null) {
+        response.sendRedirect("/cinexin/");
+    }
 
     if( sesion.getAttribute("rol") == null) {
         out.println("<a class='link-login' href='/cinexin/login.jsp'>Login</a> <a class='register-link' href='/cinexin/registro.jsp'> Registro</a>");

@@ -382,16 +382,16 @@ public class CPeticionAPi extends HttpServlet {
 						sesionJSON.put("id", sesion1.getId());
 						sesionJSON.put("id_pelicula",sesion1.getId_pelicula() );
 						sesionJSON.put("id_sala",sesion1.getId_sala() );
-						sesionJSON.put("fecha",sesion1.getFecha() );
-						sesionJSON.put("hora_entrada",sesion1.getHora_entrada() );
-						sesionJSON.put("hora_salida",sesion1.getHora_salida() );
+						sesionJSON.put("fecha","" +sesion1.getFecha() + ""  );
+						sesionJSON.put("hora_entrada",format.format(sesion1.getHora_entrada().getTime()) );
+						sesionJSON.put("hora_salida",format.format(sesion1.getHora_salida().getTime()));
 
 
 
 						arrSesiones.add(sesionJSON);
 						
 					}
-
+					System.out.println(arrSesiones);
 					pw.print(arrSesiones);
 
 

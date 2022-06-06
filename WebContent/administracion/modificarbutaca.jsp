@@ -25,6 +25,10 @@ int tipo , fila;
 
 
 id = (String)request.getAttribute("id");
+id_sala = (String)request.getAttribute("id_sala");
+columna = (String)request.getAttribute("columna");
+tipo = (int)request.getAttribute("tipo");
+fila = (int)request.getAttribute("fila");
 
 
 
@@ -92,7 +96,7 @@ request.setAttribute("id", id);
 <input name="id_sala" type="text" value="<%=id_sala %>"/>
 <label>Introduce tipo</label>
 <input name="tipo" type="number" value="<%=tipo %>"/>
-label>Introduce fila</label>
+<label>Introduce fila</label>
 <input name="fila" type="number" value="<%=fila %>"/>
 <label>Introduce columna</label>
 <input name="columna" type="text" value="<%=columna %>"/>
